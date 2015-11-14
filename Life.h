@@ -10,68 +10,80 @@
 
 using namespace std;
 
-class Species;
-class Creature;
-class Darwin;
+class Cell;
+class AbstractCell;
+class ConwayCell;
+class FredkinCell;
+class Life<T>;
 
-class Species
+class AbstractCell
 {
     public:
-        Species();
-        Species(char c);
-        Species(const Species& s);
-        void addInstruction(string inst);
-        string& operator[] (int x);
-        bool is_equal(const Species&) const;
-        friend std::ostream& operator<<(std::ostream& out, const Species& s)
-        {
-            return out << s.symbol;
-        }
+        AbstractCell();
+        virtual void updateStatus(int neighbors) {};
+        virtual std::ostream& operator<<(std::ostream& out);
     private:
-        std::vector<string> program;
-        char symbol;
+        bool alive;
 };
 
-class Creature
+class Cell
 {
     public:
-        Creature();
-        Creature(Species s, int dir);
-        Creature(const Creature& c);
-        bool isValid();
-        void executeInstruction(Darwin* d, int x, int y);
-        bool acted_upon(int turn);
-        void goAgain();
-        void modify_creature(const Creature& c);
-        friend std::ostream& operator<<(std::ostream& out, const Creature& c)
-        {
-            return out << c.species;
-        }
+        Cell() : p(new AbstractCell()) {};
+        AbstractCell* operator->() {return p;};
     private:
-        std::pair<int, int> getNextLoc(int x, int y);
-        Species species;
-        int direction;
-        int program_counter;
-        int turn_counter;
+        AbstractCell *p;
 };
 
-class Darwin 
+class ConwayCell : public AbstractCell
 {
     public:
-        Darwin(int x, int y);
-        void addCreature(Creature c, int x, int y);
-        Creature begin(void);
-        Creature end(void);
-        Creature& at(int x, int y);
+        ConwayCell():AbstractCell();
+        void updateStatus(int neighbors);
+        friend std::ostream& operator<<(std::ostream& out)
+        {
+            return out << '*';
+        };
+};
+
+class FredkinCell : public AbstractCell
+{
+    public:
+        FredkinCell():AbstractCell();
+        void updateStatus(int neighbors);
+        friend std::ostream& operator<<(std::ostream& out)
+        {
+            if (alive)
+            {
+                return out << age;
+            }
+            else
+            {
+                return out << '-';
+            }
+        };
+    private:
+        int age;
+};
+
+template<typename T>
+class Life
+{
+    public:
+        Life(int x, int y);
+        void addCell(T t, int x, int y);
+        T* begin(void);
+        T* end(void);
+        T& at(int x, int y);
         void executeTurn(void);
-        void removeCreature(int x, int y);
+        void removeCell(int x, int y);
         void printBoard(void);
         bool inBounds(int x, int y);
-        void repeat(int x, int y);
+        int getNeighbors(int i);
     private:
-        std::vector<std::vector<Creature>> grid;
+        std::vector<T> grid;
         int x_size;
         int y_size;
-        int turn;
+        int generation;
 };
 

@@ -1,5 +1,5 @@
 // ----------------------------
-// projects/darwin/Darwin.c++
+// projects/life/Life.c++
 // Copyright (C) 2015
 // Glenn P. Downing
 // ----------------------------
@@ -18,11 +18,11 @@
 #include <cstring>
 #include <vector>
 
-#include "Darwin.h"
+#include "Life.h"
 
 using namespace std;
 
-// IMPLEMENTATIONS FOR DARWIN CLASS
+// IMPLEMENTATIONS FOR LIFE CLASS
 
 /*
     Darwin::Darwin(int x, int y)
@@ -30,19 +30,15 @@ using namespace std;
     Input: x is the height of the grid. y is the width of the grid.
     Output: n/a
 */
-Darwin::Darwin(int x, int y)
+template<typename T>
+Life::Life(int x, int y)
 {
     x_size = x;
     y_size = y;
-    turn = 0;
-    for (int i = 0; i < x_size; i++)
+    generation = 0;
+    for (int i = 0; i < x_size*y_size; i++)
     {
-        vector<Creature> temp;
-        for (int j = 0; j < y_size; j++)
-        {
-            temp.push_back(Creature());
-        }
-        grid.push_back(temp);
+        grid.push_back(new T());
     }
 }
 
@@ -53,9 +49,10 @@ Darwin::Darwin(int x, int y)
     where c will be placed.
     Output: n/a
 */
-void Darwin::addCreature(Creature c, int x, int y)
+template<typename T>
+void Life::addCell(T t, int x, int y)
 {
-    grid[x][y] = c;
+    grid[x*x_size + y] = t;
 }
 
 /*
@@ -64,9 +61,10 @@ void Darwin::addCreature(Creature c, int x, int y)
     Input: x and y are the coordinates of the Creature that must be removed.
     Output: n/a
 */
-void Darwin::removeCreature(int x, int y)
+template<typename T>
+void Life::removeCell(int x, int y)
 {
-    grid[x][y] = Creature();
+    grid[x*x_size + y] = T();
 }
 
 /*
@@ -75,9 +73,10 @@ void Darwin::removeCreature(int x, int y)
     Input: n/a
     Output: Returns the first element of the grid.
 */
-Creature Darwin::begin()
+template<typename T>
+T* Life::begin()
 {
-    return grid[0][0];
+    return &grid[0];
 }
 
 /*
@@ -86,9 +85,10 @@ Creature Darwin::begin()
     Input: n/a
     Output: Returns the end of the grid.
 */
-Creature Darwin::end()
+template<typename T>
+T* Life::end()
 {
-    return grid[x_size-1][y_size-1];
+    return &grid[x_size*y_size];
 }
 
 /*
@@ -98,21 +98,16 @@ Creature Darwin::end()
     Input: n/a
     Output: n/a
 */
-void Darwin::executeTurn(void)
+template<typename T>
+void Life::executeTurn(void)
 {
-    for (int i = 0; i < x_size; i++)
+    for (int i = 0; i < x_size*y_size; i++)
     {
-        for (int j = 0; j < y_size; j++)
-        {
-            if (grid[i][j].isValid())
-            {
-                if (!grid[i][j].acted_upon(turn)) {
-                    grid[i][j].executeInstruction(this, i, j);
-                }
-            }
+        if (!grid[i].acted_upon(turn)) {
+            grid[i].updateStatus(getNeighbors(i));
         }
     }
-    turn += 1;
+    generation += 1;
 }
 
 /*
