@@ -63,7 +63,8 @@ class FredkinCell : public AbstractCell
             }
         };
     private:
-        int age;
+        int age; 
+        
 };
 
 template<typename T>
