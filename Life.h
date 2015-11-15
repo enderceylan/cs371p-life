@@ -22,8 +22,10 @@ class AbstractCell
         AbstractCell();
         virtual void updateStatus(int neighbors) {};
         virtual std::ostream& operator<<(std::ostream& out);
+        bool isValid();
     private:
         bool alive;
+        int age; 
 };
 
 class Cell
@@ -39,10 +41,18 @@ class ConwayCell : public AbstractCell
 {
     public:
         ConwayCell():AbstractCell();
+        ConwayCell(int status);
         void updateStatus(int neighbors);
         friend std::ostream& operator<<(std::ostream& out)
         {
-            return out << '*';
+            if (alive)
+            {
+                return out << '*';
+            }
+            else
+            {
+                return out << '.';
+            }
         };
 };
 
@@ -50,6 +60,7 @@ class FredkinCell : public AbstractCell
 {
     public:
         FredkinCell():AbstractCell();
+        FredkinCell(int status);
         void updateStatus(int neighbors);
         friend std::ostream& operator<<(std::ostream& out)
         {
@@ -62,8 +73,6 @@ class FredkinCell : public AbstractCell
                 return out << '-';
             }
         };
-    private:
-        int age; 
         
 };
 
@@ -76,6 +85,7 @@ class Life
         T* begin(void);
         T* end(void);
         T& at(int x, int y);
+        T& at(int i);
         void executeTurn(void);
         void removeCell(int x, int y);
         void printBoard(void);
@@ -86,5 +96,6 @@ class Life
         int x_size;
         int y_size;
         int generation;
+        int population;
 };
 

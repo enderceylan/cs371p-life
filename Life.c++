@@ -22,6 +22,7 @@
 
 using namespace std;
 
+
 // IMPLEMENTATIONS FOR LIFE CLASS
 
 /*
@@ -36,6 +37,7 @@ Life::Life(int x, int y)
     x_size = x;
     y_size = y;
     generation = 0;
+    population = 0;
     for (int i = 0; i < x_size*y_size; i++)
     {
         grid.push_back(new T());
@@ -110,15 +112,43 @@ void Life::executeTurn(void)
     generation += 1;
 }
 
+int Life::getNeighbors(int i)
+{
+    int neighbors = 0;
+    if (ConwayCell * p = dynamic_cast<ConwayCell*>(&at(i)))
+    {
+        if (inBounds(i-1) && (<< at(i-1)) == '*') {neighbors += 1;}
+        if (inBounds(i+1) && (<< at(i+1)) == '*') {neighbors += 1;}
+        if (inBounds(i-x_size) && (<< at(i-x_size)) == '*') {neighbors += 1;}
+        if (inBounds(i-x_size-1) && (<< at(i-x_size-1)) == '*') {neighbors += 1;}
+        if (inBounds(i-x_size+1) && (<< at(i-x_size+1)) == '*') {neighbors += 1;}
+        if (inBounds(i+x_size) && (<< at(i+x_size)) == '*') {neighbors += 1;}
+        if (inBounds(i+x_size-1) && (<< at(i+x_size-1)) == '*') {neighbors += 1;}
+        if (inBounds(i+x_size+1) && (<< at(i+x_size+1)) == '*') {neighbors += 1;}
+    }
+    else if (FredkinCell * p = dynamic_cast<FredkinCell*>(&at(i)))
+    {
+        if (inBounds(i-1) && (<< at(i-1)) != '*' && (<< at(i-1)) != '.' && (<< at(i-1)) != '-') {neighbors += 1;}
+        if (inBounds(i+1) && (<< at(i-1)) != '*' && (<< at(i-1)) != '.' && (<< at(i-1)) != '-') {neighbors += 1;}
+        if (inBounds(i-x_size) && (<< at(i-1)) != '*' && (<< at(i-1)) != '.' && (<< at(i-1)) != '-') {neighbors += 1;}
+        if (inBounds(i+x_size) && (<< at(i-1)) != '*' && (<< at(i-1)) != '.' && (<< at(i-1)) != '-') {neighbors += 1;}
+    }
+    return neighbors;
+}
+
 /*
     Darwin::at(int x, int y)
     Returns the element that is at a specified location in the grid.
     Input: x and y are the coordinates in the grid of the element we want to retrieve.
     Output: Returns the Creature at the specified location.
 */
-Creature& Darwin::at(int x, int y)
+Creature& Life::at(int x, int y)
 {
-    return grid[x][y];
+    return grid[x_size*x + y];
+}
+Creature& Life::at(int i)
+{
+    return grid[i];
 }
 
 /*
@@ -127,18 +157,11 @@ Creature& Darwin::at(int x, int y)
     Input: n/a
     Output: n/a
 */
-void Darwin::printBoard(void)
+void Life::printBoard(void)
 {
-    cout << "Turn = " << turn << "." << endl;
-    cout << "  ";
-    for (int i = 0; i < y_size; i++)
-    {
-        cout << (i % 10);
-    }
-    cout << endl;
+    cout << "Generation = " << generation << ", Population = " << population << "." << endl;
     for (int k = 0; k < x_size; k++)
     {
-        cout << (k % 10) << " ";
         for (int j = 0; j < y_size; j++)
         {
             if (!grid[k][j].isValid())
@@ -147,7 +170,7 @@ void Darwin::printBoard(void)
             }
             else
             {
-                cout << grid[k][j];
+                cout << grid[k*x_size + j];
             }
         }
         cout << endl;
@@ -160,7 +183,7 @@ void Darwin::printBoard(void)
     Input: x and y are the coordinates of the location we want to check.
     Output: Returns true is location is valid, false otherwise.
 */
-bool Darwin::inBounds(int x, int y)
+bool Life::inBounds(int x, int y)
 {
     if (x >= x_size || x < 0 || y >= y_size || y < 0)
     {
@@ -172,18 +195,8 @@ bool Darwin::inBounds(int x, int y)
     }
 }
 
-/*
-    Darwin::repeat(int x, int y)
-    Prompts the Creature at the given location to repeat its turn.
-    Input: x and y are the coordinates of the Creature we want to repeat its turn.
-    Output: n/a
-*/
-void Darwin::repeat(int x, int y) {
-    grid[x][y].goAgain();
-}
 
-
-// IMPLEMENTATIONS FOR CREATURE CLASS
+// IMPLEMENTATIONS FOR ABSTRACTCELL CLASS
 
 /*
     Creature::Creature()
@@ -197,20 +210,6 @@ Creature::Creature(void)
     direction = -1;
     program_counter = -1;
     turn_counter = -1;
-}
-
-/*
-    Creature::Creature(const Creature& c)
-    Copy constructor for Creature class. Should be used to peform a deep copy 
-    on Creatures.
-    Input: c is the Creature to be copied.
-    Output: n/a
-*/
-Creature::Creature (const Creature& c) {
-    species = Species(c.species);
-    direction = c.direction;
-    program_counter = c.program_counter;
-    turn_counter = c.turn_counter;
 }
 
 /*
@@ -233,8 +232,8 @@ Creature::Creature(Species s, int dir)
     Input: turn is the current turn on the grid.
     Output: Returns true if Creature has already acted on its turn, false otherwise.
 */
-bool Creature::acted_upon(int turn) {
-    if (turn_counter <= turn) {
+bool AbstractCell::acted_upon(int gen) {
+    if (age <= gen) {
         return false;
     }
     else {
@@ -248,9 +247,9 @@ bool Creature::acted_upon(int turn) {
     Input: n/a
     Output: Returns true if Creature is not blank space, false otherwise.
 */
-bool Creature::isValid()
+bool AbstractCell::isValid()
 {
-    if ((direction != -1) && (program_counter != -1)){
+    if (alive){
         return true;
     }
     else {
@@ -258,207 +257,7 @@ bool Creature::isValid()
     }
 }
 
-/*
-    Creature::getNextLoc(int x, int y)
-    Gets the next location in the Creature's current direction.
-    Input: x and y are the Creature's current location.
-    Output: Returns a set of coordinates of what the Creature's next location would be.
-*/
-std::pair<int, int> Creature::getNextLoc(int x, int y)
-{
-    std::pair<int, int> newloc;
-    if (direction % 4 == 0)
-    {
-        newloc.first = x;
-        newloc.second = y - 1;
-    }
-    if (direction % 4 == 1)
-    {
-        newloc.first = x - 1;
-        newloc.second = y;
-    }
-    if (direction % 4 == 2)
-    {
-        newloc.first = x;
-        newloc.second = y + 1;
-    }
-    if (direction % 4 == 3)
-    {
-        newloc.first = x + 1;
-        newloc.second = y;
-    }
-    return newloc;
-}
 
-/*
-    Creature::goAgain()
-    Prompts the Creature to reset its turn counter to execute another instruction.
-    Input: n/a
-    Output: n/a
-*/
-void Creature::goAgain() {
-    program_counter += 1;
-    turn_counter -= 1;
-}
-
-/*
-    Creature::modify_creature(const Creature& c)
-    Modifies the Creature's species in case of infection.
-    Input: c is the Creature that is infecting the current Creature.
-    Output: n/a
-*/
-void Creature::modify_creature(const Creature& c) {
-    if (!species.is_equal(c.species)) {
-        species = c.species;
-        program_counter = 0;
-    }
-}
-
-/*
-    Creature::executeInstruction(Darwin* d, int x, int y)
-    Executes the next instruction in the program counter.
-    Input: d is the current Darwin grid. x and y are the Creature's current location.
-    Output: n/a
-*/
-void Creature::executeInstruction(Darwin* d, int x, int y)
-{
-    turn_counter += 1;
-    string inst = species[program_counter];
-    if (inst.find("hop") != string::npos) 
-    {
-        std::pair<int, int> newloc = getNextLoc(x,y);
-        if (d->inBounds(newloc.first,newloc.second))
-        {
-            d->addCreature(Creature(*this), newloc.first, newloc.second);
-            d->removeCreature(x,y);
-            (*d).repeat(newloc.first, newloc.second);
-            d->at(newloc.first,newloc.second).executeInstruction(d,newloc.first, newloc.second);
-        }
-        else
-        {
-            d->at(x,y).goAgain();
-            d->at(x,y).executeInstruction(d,x,y);
-        }
-    } 
-    else if (inst.find("left") != string::npos) 
-    {
-        if (direction == 0)
-        {
-            direction = 3;
-        }
-        else
-        {
-            direction -= 1;
-        }
-        program_counter += 1;
-        turn_counter -= 1;
-        executeInstruction(d,x,y);
-    }
-    else if (inst.find("right") != string::npos) 
-    {
-        if (direction == 3)
-        {
-            direction = 0;
-        }
-        else
-        {
-            direction += 1;
-        }
-        program_counter += 1;
-        turn_counter -= 1;
-        executeInstruction(d,x,y);
-    }
-    else if (inst.find("infect") != string::npos) 
-    {
-        std::pair<int, int> newloc = getNextLoc(x,y);
-        if (d->inBounds(newloc.first,newloc.second) && d->at(newloc.first,newloc.second).isValid())
-        {   
-            d->at(newloc.first, newloc.second).modify_creature(*this);
-            program_counter += 1;
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-        else
-        {
-            program_counter += 1;
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-    }
-    else if (inst.find("if_empty") != string::npos) 
-    {
-        std::pair<int, int> newloc = getNextLoc(x,y);
-        string num = inst.substr(9);
-        if (d->inBounds(newloc.first, newloc.second) && !d->at(newloc.first,newloc.second).isValid())
-        {
-            program_counter = (int)stoi(num);
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-        else
-        {
-            program_counter += 1;
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-    }
-    else if (inst.find("if_wall") != string::npos) 
-    {
-        std::pair<int, int> newloc = getNextLoc(x,y);
-        string num = inst.substr(8);
-        if (!d->inBounds(newloc.first,newloc.second))
-        {
-            program_counter = (int)stoi(num);
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-        else
-        {
-            program_counter += 1;
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-    }
-    else if (inst.find("if_random") != string::npos) 
-    {
-        int rand_num = rand();
-        string num = inst.substr(10);
-        if (rand_num % 2 == 1)
-        {
-            program_counter = (int)stoi(num);
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-        else
-        {
-            program_counter += 1;
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-    }
-    else if (inst.find("if_enemy") != string::npos) 
-    {
-        std::pair<int, int> newloc = getNextLoc(x,y);
-        string num = inst.substr(9);
-        if (d->inBounds(newloc.first,newloc.second) && d->at(newloc.first,newloc.second).isValid() && !(species.is_equal(d->at(newloc.first, newloc.second).species)))
-        {
-            program_counter = (int)stoi(num);
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-        else
-        {
-            program_counter += 1;
-            turn_counter -= 1;
-            executeInstruction(d,x,y);
-        }
-    }
-    else if (inst.find("go") != string::npos) 
-    {
-        string num = inst.substr(3);
-        program_counter = (int)stoi(num);
-    }
-}
 
 // IMPLEMENTATIONS FOR SPECIES CLASS
 
