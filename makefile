@@ -82,7 +82,7 @@ Doxyfile:
 	doxygen -g
 
 RunLife: Life.h Life.c++ RunLife.c++
-	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) Life.c++ RunLife.c++ -o RunLife
+	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) Life.c++ RunLife.c++ -o RunLife 
 
 RunLife.tmp: RunLife
 	./RunLife < RunLife.in > RunLife.tmp

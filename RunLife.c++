@@ -34,6 +34,18 @@ int life_read_int (istream& r, ostream& w) {
     return i;
 }
 
+// void runBoard(Life life)
+// {
+//     for (int i = 0; i < num_evols; i++)
+//     {
+//         life.executeTurn();
+//         if (i % freq == 0)
+//         {
+//             life.printBoard();
+//         }
+//     }
+// }
+
 void life_parser(istream& r, ostream& w)
 {
     string s;
@@ -73,61 +85,70 @@ void life_parser(istream& r, ostream& w)
         // sin >> freq;
 
         //life = Life(num_rows,num_cols);
+        
         //construct Life 
         if (cellType == "ConwayCell")
         {
             Life<ConwayCell> life = Life<ConwayCell>(num_rows, num_cols);
+            //add cells to grid
+            //life.addCellsToGrid(r, w, num_rows);
+            //runBoard(life);
+            //life.runBoard(num_evols, freq);    
+            getline(r,s);
+
         }
         else if (cellType == "FredkinCell")
         {
             Life<FredkinCell> life = Life<FredkinCell>(num_rows, num_cols);
+            //add cells to grid
+            //life.addCellsToGrid(r, w, num_rows);
+            //runBoard(life);
+            //life.runBoard(num_evols, freq);
+            getline(r,s);
         }
         else
         {
             Life<Cell> life = Life<Cell>(num_rows, num_cols); //Cell::Cell(char c) takes care of this case 
-        }
-
-
-        for (int i = 0; i < num_rows; i++)
-        {
+            //add cells to grid 
+            //life.addCellsToGrid(r, w, num_rows);
+            //runBoard(life);
+            //life.runBoard(num_evols, freq);
             getline(r,s);
-            //char* gridline = (char*) s;
-            int j = 0;
-            for (char& c : s)
-            {
-                if (c == '.')
-                {
-                    life.addCell(ConwayCell(0),i,j);
-                }
-                if (c == '-')
-                {
-                    life.addCell(FredkinCell(0),i,j);
-                }
-                if (c == '*')
-                {
-                    life.addCell(ConwayCell(1)),i,j);
-                }
-                if (c == '0')
-                {
-                    life.addCell(FredkinCell(1),i,j);
-                }
-                j += 1;
-            }
         }
-        runBoard(life);
-        getline(r,s);
-    }
-}
 
-void runBoard(Life life)
-{
-    for (int i = 0; i < num_evols; i++)
-    {
-        life.executeTurn();
-        if (i % freq == 0)
-        {
-            life.printBoard();
-        }
+
+        // for (int i = 0; i < num_rows; i++)
+        // {
+        //     getline(r,s);
+        //     //char* gridline = (char*) s;
+        //     int j = 0;
+        //     for (char& c : s)
+        //     {
+        //         if (c == '.')
+        //         {
+        //             life.addCell(ConwayCell(0),i,j);
+        //         }
+        //         if (c == '-')
+        //         {
+        //             life.addCell(FredkinCell(0),i,j);
+        //         }
+        //         if (c == '*')
+        //         {
+        //             life.addCell(ConwayCell(1)),i,j);
+        //         }
+        //         if (c == '0')
+        //         {
+        //             life.addCell(FredkinCell(1),i,j);
+        //         }
+        //         j += 1;
+        //     }
+        // }
+        
+
+
+
+        // runBoard(life);
+        // getline(r,s);
     }
 }
 

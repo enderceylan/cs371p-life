@@ -26,9 +26,9 @@ class AbstractCell
         virtual std::ostream& operator<<(std::ostream& out);
         virtual operator int(); //going to access age for FredkinCell
         virtual operator bool(); //going to access alive for Conway/Fredkin
-        virtual const int numOfNeighbors() const;
-        virtual void checkNeighbors(); //
-        bool isValid();
+        virtual const int numOfNeighbors() const = 0;
+        //virtual void checkNeighbors() = 0; //
+        //bool isValid();
     private:
         bool alive;
         int age; //only need for Fredkin??
@@ -106,12 +106,14 @@ class Life
     public:
         Life(int x, int y);
         void addCell(T t, int x, int y);
+        void addCellsToGrid(istream& r, ostream& w, int num_rows);
         T* begin(void);
         T* end(void);
         T& at(int x, int y);
         T& at(int i);
         void executeTurn(void);
         void removeCell(int x, int y);
+        void runBoard(int num_evols, int freq);
         void printBoard(void);
         bool inBounds(int x, int y);
         int countNeighbors(T& cell);

@@ -56,6 +56,48 @@ void Life<T>::addCell(T t, int x, int y)
 {
     grid[x*x_size + y] = t;
 }
+//add individual cells to grid
+template<typename T>
+void Life<T>::addCellsToGrid(istream& r, ostream& w, int num_rows) {
+    string s;
+    for (int i = 0; i < num_rows; i++)
+    {
+        getline(r,s);
+        //char* gridline = (char*) s;
+        int j = 0;
+        for (char& c : s)
+        {
+            if (c == '.')
+            {
+                addCell(T(c),i,j);
+            }
+            if (c == '-')
+            {
+                addCell(T(c),i,j);
+            }
+            if (c == '*')
+            {
+                addCell(T(c),i,j);
+            }
+            if (c == '0')
+            {
+                addCell(T(c),i,j);
+            }
+            j += 1;
+        }
+    }
+}
+template<typename T>
+void Life<T>::runBoard(int num_evols, int freq) {
+    for (int i = 0; i < num_evols; i++)
+    {
+        executeTurn();
+        if (i % freq == 0)
+        {
+            printBoard();
+        }
+    }
+}
 
 /*
     Darwin::removeCreature(int x, int y)
