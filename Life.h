@@ -122,6 +122,23 @@ class Life
 };
 
 
+//Life constructor. Place cells in grid. Call like --> Life<ConwayCell> life(input);...then life(print), life(simulate)...
+// template<typename T>
+// Life<T>::Life(istream& in) {
+//     population = 0;
+//     generation = 0;
+//     in >> x_size;
+//     in >> y_size;
+
+//     int total = x_size * y_size;
+//     for(int i=0; i<total; i++) {
+//         char c;
+//         in >> c;
+//         grid[i]. //put cell in grid --> T(c); 
+//     }
+// }
+
+
 template <typename T>
 void Life<T>::countNeighbors(T& cell) {
     int neighbors = 0;

@@ -36,7 +36,7 @@ void life_parser(istream& r, ostream& w)
         }
         else
         {
-            Life<Cell> life;
+            Life<Cell> life; //Cell::Cell(char c) takes care of this case 
         }
 
         getline(r,s);
