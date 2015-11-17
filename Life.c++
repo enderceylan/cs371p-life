@@ -32,7 +32,7 @@ using namespace std;
     Output: n/a
 */
 template<typename T>
-Life::Life(int x, int y)
+Life<T>::Life(int x, int y)
 {
     x_size = x;
     y_size = y;
@@ -52,7 +52,7 @@ Life::Life(int x, int y)
     Output: n/a
 */
 template<typename T>
-void Life::addCell(T t, int x, int y)
+void Life<T>::addCell(T t, int x, int y)
 {
     grid[x*x_size + y] = t;
 }
@@ -64,7 +64,7 @@ void Life::addCell(T t, int x, int y)
     Output: n/a
 */
 template<typename T>
-void Life::removeCell(int x, int y)
+void Life<T>::removeCell(int x, int y)
 {
     grid[x*x_size + y] = T();
 }
@@ -76,7 +76,7 @@ void Life::removeCell(int x, int y)
     Output: Returns the first element of the grid.
 */
 template<typename T>
-T* Life::begin()
+T* Life<T>::begin()
 {
     return &grid[0];
 }
@@ -88,7 +88,7 @@ T* Life::begin()
     Output: Returns the end of the grid.
 */
 template<typename T>
-T* Life::end()
+T* Life<T>::end()
 {
     return &grid[x_size*y_size];
 }
@@ -101,40 +101,85 @@ T* Life::end()
     Output: n/a
 */
 template<typename T>
-void Life::executeTurn(void)
+void Life<T>::executeTurn(void)
 {
+    int popcount = 0;
     for (int i = 0; i < x_size*y_size; i++)
     {
-        if (!grid[i].acted_upon(turn)) {
-            grid[i].updateStatus(getNeighbors(i));
+        grid[i].updateStatus(countNeighbors(i));
+        if (isAlive(grid[i].numOfNeighbors(),i))
+        {
+            popcount += 1;
         }
     }
     generation += 1;
+    population = popcount;
 }
 
-int Life::getNeighbors(int i)
-{
+template <typename T>
+int Life<T>::countNeighbors(T& cell) {
     int neighbors = 0;
-    if (ConwayCell * p = dynamic_cast<ConwayCell*>(&at(i)))
-    {
-        if (inBounds(i-1) && (<< at(i-1)) == '*') {neighbors += 1;}
-        if (inBounds(i+1) && (<< at(i+1)) == '*') {neighbors += 1;}
-        if (inBounds(i-x_size) && (<< at(i-x_size)) == '*') {neighbors += 1;}
-        if (inBounds(i-x_size-1) && (<< at(i-x_size-1)) == '*') {neighbors += 1;}
-        if (inBounds(i-x_size+1) && (<< at(i-x_size+1)) == '*') {neighbors += 1;}
-        if (inBounds(i+x_size) && (<< at(i+x_size)) == '*') {neighbors += 1;}
-        if (inBounds(i+x_size-1) && (<< at(i+x_size-1)) == '*') {neighbors += 1;}
-        if (inBounds(i+x_size+1) && (<< at(i+x_size+1)) == '*') {neighbors += 1;}
+    int n = cell.numOfNeighbors();
+    //vector<NeighborAxis> n_axis = cell.neighborAxis();
+
+    for(int i=0; i<n; i++) {
+        //access grid, check if cell is alive and increment neighbors
+        if(isAlive(n, i)) {
+            neighbors++;
+        }
     }
-    else if (FredkinCell * p = dynamic_cast<FredkinCell*>(&at(i)))
-    {
-        if (inBounds(i-1) && (<< at(i-1)) != '*' && (<< at(i-1)) != '.' && (<< at(i-1)) != '-') {neighbors += 1;}
-        if (inBounds(i+1) && (<< at(i-1)) != '*' && (<< at(i-1)) != '.' && (<< at(i-1)) != '-') {neighbors += 1;}
-        if (inBounds(i-x_size) && (<< at(i-1)) != '*' && (<< at(i-1)) != '.' && (<< at(i-1)) != '-') {neighbors += 1;}
-        if (inBounds(i+x_size) && (<< at(i-1)) != '*' && (<< at(i-1)) != '.' && (<< at(i-1)) != '-') {neighbors += 1;}
-    }
+
     return neighbors;
 }
+//determines if neighbor is alive depending on Conway/Fredkin and index
+template<typename T>
+bool Life<T>::isAlive(int n, int i) {
+    //if ConwayCell
+    if(n==8) {
+        if(i==0) {
+            if (inBounds(i-1) && (at(i-1)) == true) {return true;}
+        }
+        else if(i==1){
+            if (inBounds(i+1) && (at(i+1)) == true) {return true;}
+        }
+        else if(i==2){
+            if (inBounds(i-x_size) && (at(i-x_size)) == true) {return true;}
+        }
+        else if(i==3){
+            if (inBounds(i-x_size-1) && (at(i-x_size-1)) == true) {return true;}
+        }
+        else if(i==4){
+            if (inBounds(i-x_size+1) && (at(i-x_size+1)) == true) {return true;}
+        }
+        else if(i==5){
+            if (inBounds(i+x_size) && (at(i+x_size)) == true) {return true;}
+        }
+        else if(i==6){
+            if (inBounds(i+x_size-1) && (at(i+x_size-1)) == true) {return true;}
+        }
+        else if(i==7){
+            if (inBounds(i+x_size+1) && (at(i+x_size+1)) == true) {return true;}
+        }
+    }
+    //if FredkinCell
+    else if(n==4) {
+        if(i==0){
+            if (inBounds(i-1) && (at(i-1)) == true) {return true;}
+        }
+        if(i==1){
+            if (inBounds(i+1) && (at(i+1)) == true) {return true;}
+        }
+        if(i==2){
+            if (inBounds(i-x_size) && (at(i-x_size)) == true) {return true;}
+        }
+        if(i==3){
+            if (inBounds(i+x_size) && (at(i+x_size)) == true) {return true;}
+        }
+    }
+    return false;
+}
+
+
 
 /*
     Darwin::at(int x, int y)
@@ -142,11 +187,13 @@ int Life::getNeighbors(int i)
     Input: x and y are the coordinates in the grid of the element we want to retrieve.
     Output: Returns the Creature at the specified location.
 */
-Creature& Life::at(int x, int y)
+template<typename T>
+T& Life<T>::at(int x, int y)
 {
     return grid[x_size*x + y];
 }
-Creature& Life::at(int i)
+template<typename T>
+T& Life<T>::at(int i)
 {
     return grid[i];
 }
@@ -157,24 +204,19 @@ Creature& Life::at(int i)
     Input: n/a
     Output: n/a
 */
-void Life::printBoard(void)
+template<typename T>
+void Life<T>::printBoard(void)
 {
     cout << "Generation = " << generation << ", Population = " << population << "." << endl;
     for (int k = 0; k < x_size; k++)
     {
         for (int j = 0; j < y_size; j++)
         {
-            if (!grid[k][j].isValid())
-            {
-                cout << ".";
-            }
-            else
-            {
-                cout << grid[k*x_size + j];
-            }
+            cout << at(k,j);
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 /*
@@ -183,7 +225,8 @@ void Life::printBoard(void)
     Input: x and y are the coordinates of the location we want to check.
     Output: Returns true is location is valid, false otherwise.
 */
-bool Life::inBounds(int x, int y)
+template<typename T>
+bool Life<T>::inBounds(int x, int y)
 {
     if (x >= x_size || x < 0 || y >= y_size || y < 0)
     {
@@ -196,134 +239,122 @@ bool Life::inBounds(int x, int y)
 }
 
 
-// IMPLEMENTATIONS FOR ABSTRACTCELL CLASS
-
-/*
-    Creature::Creature()
-    Empty constructor for Creature class. Should be used to represent blank spaces.
-    Input: n/a
-    Output: n/a
-*/
-Creature::Creature(void)
-{
-    species = Species();
-    direction = -1;
-    program_counter = -1;
-    turn_counter = -1;
+AbstractCell::operator int() {
+    return 0;
+}
+AbstractCell::operator bool() {
+    return false;
 }
 
-/*
-    Creature::Creature(Species s, int dir)
-    Regular constructor for Creature that initializes variables.
-    Input: s is the Creature's Species. dir is the Creature's direction.
-    Output: n/a
-*/
-Creature::Creature(Species s, int dir)
-{
-    species = s;
-    direction = dir;  //0:west, 1:north, 2:east, 3:south.
-    program_counter = 0;
-    turn_counter = 0;
+
+
+
+
+
+
+//constructor for Cell creates new ConwayCell or FredkinCell depending on input
+Cell::Cell(char c) {
+    if(c=='.' || c=='*')
+        p = new ConwayCell(c);
+    else
+        p = new FredkinCell(c);
 }
 
-/*
-    Creature::acted_upon(int turn)
-    Checks to see if the Creature has already fully executed its turn.
-    Input: turn is the current turn on the grid.
-    Output: Returns true if Creature has already acted on its turn, false otherwise.
-*/
-bool AbstractCell::acted_upon(int gen) {
-    if (age <= gen) {
-        return false;
+//modify state of Cell on a turn after neighbors have been set
+void Cell::updateStatus() {
+    //set to ConwayCell if age is 2
+    if(*p == 2) {
+        delete p; 
+        p = new ConwayCell('*');
     }
+}
+
+
+//convert Cell to int. (returns age for Fredkin)
+Cell::operator int() {
+    return *p;
+}
+//convert Cell to bool. (returns alive for Fredkin/Conway)
+Cell::operator bool() {
+    return *p;
+}
+
+
+
+
+
+
+
+
+
+//construct ConwayCell depending on input
+ConwayCell::ConwayCell(char c) {
+    if(c=='.') {
+        alive = false;
+    }
+    else if(c=='*') {
+        alive = true;
+    }
+}
+
+//ConwayCell turn(). sets alive after counting neigbhors
+void ConwayCell::updateStatus(int neighbors) {
+    if (alive == false && neighbors == 3)
+    {
+        alive = true;
+    }
+    if (alive == true && (neighbors < 2 || neighbors > 3))
+    {
+        alive = false;
+    }
+}
+//return number of neighbors for ConwayCell
+const int ConwayCell::numOfNeighbors() const {
+    //would have to determine if in corner, edge, or middle
+    return 8;
+}
+//ConwayCell returns alive when converted to bool
+ConwayCell::operator bool() {
+    return alive;
+}
+
+
+
+
+//construct FredkinCell depending on input
+FredkinCell::FredkinCell(char c) {
+    if(c=='-')
+        alive = false;
     else {
-        return true;
+        alive = true;
+        age = c - '0';
     }
 }
-
-/*
-    Creature::isValid()
-    Checks to see if the Creature is not representing a blank space.
-    Input: n/a
-    Output: Returns true if Creature is not blank space, false otherwise.
-*/
-bool AbstractCell::isValid()
-{
-    if (alive){
-        return true;
+//FredkinCell turn(). sets alive and age after counting neighbors
+void FredkinCell::updateStatus(int neighbors) {
+    if (alive == false && neighbors % 2 == 1)
+    {
+        alive = true;
     }
-    else {
-        return false;
+    if (alive == true && neighbors % 2 == 0)
+    {
+        alive = false;
+    }
+    if (alive == true)
+    {
+        age += 1;
     }
 }
-
-
-
-// IMPLEMENTATIONS FOR SPECIES CLASS
-
-/*
-    Species::Species()
-    Empty constructor for Species class. Should be used to represent blank spaces.
-    Input: n/a
-    Output: n/a
-*/
-Species::Species(void)
-{
-    symbol = '.';
-    program = {};
+//FredkinCell returns age when converted to int. 
+FredkinCell::operator int() {
+    return age;
 }
-
-/*
-    Species::Species(const Species& s)
-    Copy constructor for Species class. Should be used to peform a deep copy on Species.
-    Input: s is the Species to be copied.
-    Output: n/a
-*/
-Species::Species (const Species& s) {
-    program = s.program;
-    symbol = s.symbol;
+//FredkinCell returns alive when converted to bool
+FredkinCell::operator bool() {
+    return alive;
 }
-
-/*
-    Species::Species(char c)
-    Regular constructor for Species that initializes variables.
-    Input: c is the character that will represent the Species on the grid.
-    Output: n/a
-*/
-Species::Species(char c)
-{
-    symbol = c;
-    program = {};
-}
-
-/*
-    Species::addInstruction(string inst)
-    Adds an instruction to the program.
-    Input: inst is the instruction to be added to the program.
-    Output: n/a
-*/
-void Species::addInstruction(string inst)
-{
-    program.push_back(inst);
-}
-
-/*
-    Species::operator[] (int x)
-    Indexing operator for Species program.
-    Input: x is the number of the instruction to be retrieved.
-    Output: Returns the requested instruction from the program.
-*/
-string& Species::operator[] (int x)
-{
-    return program[x];
-}
-
-/*
-    Species::is_equal(const Species& other)
-    Checks to see if two instances of Species are of equal types.
-    Input: other is the other instance of Species to be compared.
-    Output: Returns true if they are of the same type, false
-*/
-bool Species::is_equal(const Species& other) const{
-    return symbol == other.symbol;
+//return number of of neighbors for FredkinCell
+const int FredkinCell::numOfNeighbors() const {
+    //determine if in corner, edge, or middle
+    return 4; 
 }
