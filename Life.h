@@ -27,6 +27,7 @@ class AbstractCell
         virtual operator int(); //going to access age for FredkinCell
         virtual operator bool(); //going to access alive for Conway/Fredkin
         virtual const int numOfNeighbors() const = 0;
+        //virtual AbstractCell* clone() const = 0;
         //virtual void checkNeighbors() = 0; //
         //bool isValid();
     private:
@@ -54,6 +55,7 @@ class ConwayCell : public AbstractCell
             }
         };
         operator bool();
+        //AbstractCell* clone() const;
     private:
         bool alive;
 };
@@ -81,6 +83,7 @@ class FredkinCell : public AbstractCell
                 return out << '-';
             }
         };
+        //AbstractCell* clone() const;
     private:
         bool alive;
         int age;
@@ -91,7 +94,11 @@ class Cell
     public:
         //Cell() : p(FredkinCell()) {};
         Cell(char c);
-        //~Cell();
+        
+        // Cell(const Cell&);
+        // Cell& operator = (Cell);
+        // ~Cell();
+
         AbstractCell* operator->() {return p;};
         void updateStatus(int neighbors); //one turn for a cell
         operator int();

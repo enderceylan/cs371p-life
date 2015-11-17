@@ -301,7 +301,19 @@ Cell::Cell(char c) {
     else
         p = new FredkinCell(c);
 }
-//destructor
+// //copy constructor
+// Cell::Cell(const Cell& c) {
+//     if(!c.p)
+//         p = 0;
+//     else
+//         p = c.p->clone();
+// }
+// //copy assignment
+// Cell& Cell::operator = (Cell c) {
+//     swap(p, c.p);
+//     return *this;
+// }
+// //destructor
 // Cell::~Cell() {
 //     delete p;
 // }
@@ -365,6 +377,9 @@ ConwayCell::operator bool() {
     return alive;
 }
 
+// AbstractCell* ConwayCell::clone() const {
+//     return new ConwayCell(*this);
+// }
 
 
 
@@ -405,3 +420,7 @@ const int FredkinCell::numOfNeighbors() const {
     //determine if in corner, edge, or middle
     return 4; 
 }
+
+// AbstractCell* FredkinCell::clone() const {
+//     return new FredkinCell(*this);
+// }

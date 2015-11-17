@@ -89,17 +89,18 @@ void life_parser(istream& r, ostream& w)
         //construct Life 
         if (cellType == "ConwayCell")
         {
-            Life<ConwayCell> life = Life<ConwayCell>(num_rows, num_cols);
+            //Life<ConwayCell> life = Life<ConwayCell>(num_rows, num_cols);
+            Life<ConwayCell> life(num_rows, num_cols);
             //add cells to grid
-            //life.addCellsToGrid(r, w, num_rows);
+            life.addCellsToGrid(r, w, num_rows);
             //runBoard(life);
-            //life.runBoard(num_evols, freq);    
+            life.runBoard(num_evols, freq);    
             getline(r,s);
 
         }
         else if (cellType == "FredkinCell")
         {
-            Life<FredkinCell> life = Life<FredkinCell>(num_rows, num_cols);
+            //Life<FredkinCell> life = Life<FredkinCell>(num_rows, num_cols);
             //add cells to grid
             //life.addCellsToGrid(r, w, num_rows);
             //runBoard(life);
@@ -108,7 +109,7 @@ void life_parser(istream& r, ostream& w)
         }
         else
         {
-            Life<Cell> life = Life<Cell>(num_rows, num_cols); //Cell::Cell(char c) takes care of this case 
+            //Life<Cell> life = Life<Cell>(num_rows, num_cols); //Cell::Cell(char c) takes care of this case 
             //add cells to grid 
             //life.addCellsToGrid(r, w, num_rows);
             //runBoard(life);
@@ -159,4 +160,7 @@ void life_parser(istream& r, ostream& w)
 int main () {
     using namespace std;
     life_parser(cin, cout);
+
+
+
     return 0;}
