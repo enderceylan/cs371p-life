@@ -259,9 +259,14 @@ Cell::Cell(char c) {
     else
         p = new FredkinCell(c);
 }
+//destructor
+// Cell::~Cell() {
+//     delete p;
+// }
 
 //modify state of Cell on a turn after neighbors have been set
-void Cell::updateStatus() {
+void Cell::updateStatus(int neighbors) {
+    //p->updateStatus();
     //set to ConwayCell if age is 2
     if(*p == 2) {
         delete p; 

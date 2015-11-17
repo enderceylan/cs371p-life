@@ -89,10 +89,11 @@ class FredkinCell : public AbstractCell
 class Cell
 {
     public:
-        Cell() : p(FredkinCell()) {};
+        //Cell() : p(FredkinCell()) {};
         Cell(char c);
+        //~Cell();
         AbstractCell* operator->() {return p;};
-        void updateStatus(); //one turn for a cell
+        void updateStatus(int neighbors); //one turn for a cell
         operator int();
         operator bool();
     private:
