@@ -285,7 +285,7 @@ AbstractCell::operator int() {
     return 0;
 }
 AbstractCell::operator bool() {
-    return false;
+    return alive;
 }
 
 

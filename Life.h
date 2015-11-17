@@ -21,12 +21,14 @@ using namespace std;
 class AbstractCell
 {
     public:
-        AbstractCell();
-        virtual void updateStatus(int neighbors);
-        virtual std::ostream& operator<<(std::ostream& out);
+        //AbstractCell();
+
+        virtual void updateStatus(int neighbors) = 0;
+        virtual std::ostream& operator<<(std::ostream& out) = 0;
         virtual operator int(); //going to access age for FredkinCell
         virtual operator bool(); //going to access alive for Conway/Fredkin
         virtual const int numOfNeighbors() const = 0;
+
         //virtual AbstractCell* clone() const = 0;
         //virtual void checkNeighbors() = 0; //
         //bool isValid();
@@ -38,7 +40,7 @@ class AbstractCell
 class ConwayCell : public AbstractCell
 {
     public:
-        ConwayCell():AbstractCell(){};
+        //ConwayCell():AbstractCell(){};
         ConwayCell(char c); //construct ConwayCell as you read in input
         ConwayCell(int status);
         void updateStatus(int neighbors);
@@ -63,7 +65,7 @@ class ConwayCell : public AbstractCell
 class FredkinCell : public AbstractCell
 {
     public:
-        FredkinCell():AbstractCell(){};
+        //FredkinCell():AbstractCell(){};
         FredkinCell(char c); //construct FredkinCell as you read in input
         FredkinCell(int status);
         void updateStatus(int neighbors);
@@ -133,5 +135,4 @@ class Life
         int generation;
         int population;
 };
-
 
