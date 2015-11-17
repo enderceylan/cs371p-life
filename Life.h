@@ -1,3 +1,6 @@
+#ifndef Life_h
+#define Life_h
+
 #include <cassert>  // assert
 #include <iostream> // endl, istream, ostream
 #include <sstream>  // istringstream
@@ -114,6 +117,7 @@ class Life
 {
     public:
         Life(int x, int y);
+        Life(int num_rows, int num_cols, istream& r, ostream& w);
         void addCell(T t, int x, int y);
         void addCellsToGrid(istream& r, ostream& w, int num_rows);
         T* begin(void);
@@ -136,3 +140,4 @@ class Life
         int population;
 };
 
+#endif

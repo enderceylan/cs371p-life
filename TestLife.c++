@@ -3,7 +3,7 @@
 
 #include "gtest/gtest.h"
 
-#include "Darwin.h"
+#include "Life.h"
 
 using namespace std;
 

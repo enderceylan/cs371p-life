@@ -96,3 +96,5 @@ TestLife.tmp: TestLife
 	$(GCOV) -b Life.c++     | grep -A 5 "File 'Life.c++'"     >> TestLife.tmp
 	$(GCOV) -b TestLife.c++ | grep -A 5 "File 'TestLife.c++'" >> TestLife.tmp
 	cat TestLife.tmp
+
+r: RunLife.tmp

@@ -1,12 +1,8 @@
-// ----------------------------
-// projects/life/Life.c++
-// Copyright (C) 2015
-// Glenn P. Downing
-// ----------------------------
 
 // --------
 // includes
 // --------
+#include "Life.h"
 
 #include <cassert>  // assert
 #include <iostream> // endl, istream, ostream
@@ -18,7 +14,6 @@
 #include <cstring>
 #include <vector>
 
-#include "Life.h"
 
 using namespace std;
 
@@ -41,6 +36,28 @@ Life<T>::Life(int x, int y)
     for (int i = 0; i < x_size*y_size; i++)
     {
         grid.push_back(new T());
+    }
+}
+//construct Life and put in cells at the same time 
+template<typename T>
+Life<T>::Life(int num_rows, int num_cols, istream& r, ostream& w)
+{
+    string s;
+    x_size = num_rows;
+    y_size = num_cols;
+    generation = 0;
+    population = 0;
+
+    for (int i = 0; i < num_rows; i++)
+    {
+        getline(r,s);
+        //char* gridline = (char*) s;
+        //int j = 0;
+        for (char& c : s)
+        {
+            grid.push_back(T(c));
+            //j += 1;
+        }
     }
 }
 
