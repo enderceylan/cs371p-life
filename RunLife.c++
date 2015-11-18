@@ -97,7 +97,7 @@ void life_parser(istream& r, ostream& w)
             //add cells to grid
             //life.addCellsToGrid(r, w, num_rows);
             //runBoard(life);
-            //life.runBoard(num_evols, freq);    
+            life.runBoard(num_evols, freq);    
             getline(r,s);
 
         }
