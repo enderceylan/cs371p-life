@@ -240,11 +240,16 @@ void Life<T>::executeTurn(void)
     {
         //count number of neighbors and update
         grid[i].updateStatus(countNeighbors(at(i), i));
-        if (isAlive(grid[i].numOfNeighbors(),i))
-        {
-            popcount += 1;
-        }
+        // if (isAlive(grid[i].numOfNeighbors(), i, ))
+        // {
+        //     popcount += 1;
+        // }
+
+        //first count neighbors of all cells
+        //update all cells (set alive and dead) all at the same time
+        
     }
+
     generation += 1;
     population = popcount;
 }
