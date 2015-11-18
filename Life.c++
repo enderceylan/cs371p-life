@@ -26,276 +26,64 @@ using namespace std;
     Input: x is the height of the grid. y is the width of the grid.
     Output: n/a
 */
-template<typename T>
-Life<T>::Life(int x, int y)
-{
-    x_size = x;
-    y_size = y;
-    generation = 0;
-    population = 0;
-    for (int i = 0; i < x_size*y_size; i++)
-    {
-        grid.push_back(new T());
-    }
-}
-//construct Life and put in cells at the same time 
 // template<typename T>
-// Life<T>::Life(int num_rows, int num_cols, istream& r, ostream& w)
+// Life<T>::Life(int x, int y)
 // {
-//     string s;
-//     x_size = num_rows;
-//     y_size = num_cols;
+//     x_size = x;
+//     y_size = y;
 //     generation = 0;
 //     population = 0;
+//     for (int i = 0; i < x_size*y_size; i++)
+//     {
+//         grid.push_back(new T());
+//     }
+// }
 
+
+// /*
+//     Darwin::addCreature(Creature c, int x, int y)
+//     Places a new Creature onto the grid.
+//     Input: c is the Creature to be placed on the grid. x and y are the coordinates
+//     where c will be placed.
+//     Output: n/a
+// */
+// template<typename T>
+// void Life<T>::addCell(T t, int x, int y)
+// {
+//     grid[x*x_size + y] = t;
+// }
+// //add individual cells to grid
+// template<typename T>
+// void Life<T>::addCellsToGrid(istream& r, ostream& w, int num_rows) {
+//     string s;
 //     for (int i = 0; i < num_rows; i++)
 //     {
 //         getline(r,s);
 //         //char* gridline = (char*) s;
-//         //int j = 0;
+//         int j = 0;
 //         for (char& c : s)
 //         {
-//             grid.push_back(T(c));
-//             //j += 1;
+//             if (c == '.')
+//             {
+//                 addCell(T(c),i,j);
+//             }
+//             if (c == '-')
+//             {
+//                 addCell(T(c),i,j);
+//             }
+//             if (c == '*')
+//             {
+//                 addCell(T(c),i,j);
+//             }
+//             if (c == '0')
+//             {
+//                 addCell(T(c),i,j);
+//             }
+//             j += 1;
 //         }
 //     }
 // }
 
-/*
-    Darwin::addCreature(Creature c, int x, int y)
-    Places a new Creature onto the grid.
-    Input: c is the Creature to be placed on the grid. x and y are the coordinates
-    where c will be placed.
-    Output: n/a
-*/
-template<typename T>
-void Life<T>::addCell(T t, int x, int y)
-{
-    grid[x*x_size + y] = t;
-}
-//add individual cells to grid
-template<typename T>
-void Life<T>::addCellsToGrid(istream& r, ostream& w, int num_rows) {
-    string s;
-    for (int i = 0; i < num_rows; i++)
-    {
-        getline(r,s);
-        //char* gridline = (char*) s;
-        int j = 0;
-        for (char& c : s)
-        {
-            if (c == '.')
-            {
-                addCell(T(c),i,j);
-            }
-            if (c == '-')
-            {
-                addCell(T(c),i,j);
-            }
-            if (c == '*')
-            {
-                addCell(T(c),i,j);
-            }
-            if (c == '0')
-            {
-                addCell(T(c),i,j);
-            }
-            j += 1;
-        }
-    }
-}
-// template<typename T>
-// void Life<T>::runBoard(int num_evols, int freq) {
-//     for (int i = 0; i < num_evols; i++)
-//     {
-//         executeTurn();
-//         if (i % freq == 0)
-//         {
-//             printBoard();
-//         }
-//     }
-// }
-
-/*
-    Darwin::removeCreature(int x, int y)
-    Removes a Creature from the grid.
-    Input: x and y are the coordinates of the Creature that must be removed.
-    Output: n/a
-*/
-// template<typename T>
-// void Life<T>::removeCell(int x, int y)
-// {
-//     grid[x*x_size + y] = T();
-// }
-
-// /*
-//     Darwin::begin()
-//     Outputs the first element of the grid.
-//     Input: n/a
-//     Output: Returns the first element of the grid.
-// */
-// template<typename T>
-// T* Life<T>::begin()
-// {
-//     return &grid[0];
-// }
-
-// /*
-//     Darwin::end()
-//     Outputs the end of the grid.
-//     Input: n/a
-//     Output: Returns the end of the grid.
-// */
-// template<typename T>
-// T* Life<T>::end()
-// {
-//     return &grid[x_size*y_size];
-// }
-
-/*
-    Darwin::executeTurn()
-    Cycles through the entire grid and executes an instruction for each Creature in
-    the grid, going from left to right, and from top to bottom.
-    Input: n/a
-    Output: n/a
-*/
-// template<typename T>
-// void Life<T>::executeTurn(void)
-// {
-//     int popcount = 0;
-//     for (int i = 0; i < x_size*y_size; i++)
-//     {
-//         grid[i].updateStatus(countNeighbors(i));
-//         if (isAlive(grid[i].numOfNeighbors(),i))
-//         {
-//             popcount += 1;
-//         }
-//     }
-//     generation += 1;
-//     population = popcount;
-// }
-
-// template <typename T>
-// int Life<T>::countNeighbors(T& cell) {
-//     int neighbors = 0;
-//     int n = cell.numOfNeighbors();
-//     //vector<NeighborAxis> n_axis = cell.neighborAxis();
-
-//     for(int i=0; i<n; i++) {
-//         //access grid, check if cell is alive and increment neighbors
-//         if(isAlive(n, i)) {
-//             neighbors++;
-//         }
-//     }
-
-//     return neighbors;
-// }
-// //determines if neighbor is alive depending on Conway/Fredkin and index
-// template<typename T>
-// bool Life<T>::isAlive(int n, int i) {
-//     //if ConwayCell
-//     if(n==8) {
-//         if(i==0) {
-//             if (inBounds(i-1) && (at(i-1)) == true) {return true;}
-//         }
-//         else if(i==1){
-//             if (inBounds(i+1) && (at(i+1)) == true) {return true;}
-//         }
-//         else if(i==2){
-//             if (inBounds(i-x_size) && (at(i-x_size)) == true) {return true;}
-//         }
-//         else if(i==3){
-//             if (inBounds(i-x_size-1) && (at(i-x_size-1)) == true) {return true;}
-//         }
-//         else if(i==4){
-//             if (inBounds(i-x_size+1) && (at(i-x_size+1)) == true) {return true;}
-//         }
-//         else if(i==5){
-//             if (inBounds(i+x_size) && (at(i+x_size)) == true) {return true;}
-//         }
-//         else if(i==6){
-//             if (inBounds(i+x_size-1) && (at(i+x_size-1)) == true) {return true;}
-//         }
-//         else if(i==7){
-//             if (inBounds(i+x_size+1) && (at(i+x_size+1)) == true) {return true;}
-//         }
-//     }
-//     //if FredkinCell
-//     else if(n==4) {
-//         if(i==0){
-//             if (inBounds(i-1) && (at(i-1)) == true) {return true;}
-//         }
-//         if(i==1){
-//             if (inBounds(i+1) && (at(i+1)) == true) {return true;}
-//         }
-//         if(i==2){
-//             if (inBounds(i-x_size) && (at(i-x_size)) == true) {return true;}
-//         }
-//         if(i==3){
-//             if (inBounds(i+x_size) && (at(i+x_size)) == true) {return true;}
-//         }
-//     }
-//     return false;
-// }
-
-
-
-/*
-    Darwin::at(int x, int y)
-    Returns the element that is at a specified location in the grid.
-    Input: x and y are the coordinates in the grid of the element we want to retrieve.
-    Output: Returns the Creature at the specified location.
-*/
-// template<typename T>
-// T& Life<T>::at(int x, int y)
-// {
-//     return grid[x_size*x + y];
-// }
-// template<typename T>
-// T& Life<T>::at(int i)
-// {
-//     return grid[i];
-// }
-
-/*
-    Darwin::printBoard()
-    Prints the current status of the grid.
-    Input: n/a
-    Output: n/a
-*/
-// template<typename T>
-// void Life<T>::printBoard(void)
-// {
-//     cout << "Generation = " << generation << ", Population = " << population << "." << endl;
-//     for (int k = 0; k < x_size; k++)
-//     {
-//         for (int j = 0; j < y_size; j++)
-//         {
-//             cout << at(k,j);
-//         }
-//         cout << endl;
-//     }
-//     cout << endl;
-// }
-
-/*
-    Darwin::inBounds(int x, int y)
-    Checks to see whether the given location is within the bounds of the grid.
-    Input: x and y are the coordinates of the location we want to check.
-    Output: Returns true is location is valid, false otherwise.
-*/
-// template<typename T>
-// bool Life<T>::inBounds(int x, int y)
-// {
-//     if (x >= x_size || x < 0 || y >= y_size || y < 0)
-//     {
-//         return false;
-//     }
-//     else
-//     {
-//         return true;
-//     }
-// }
 
 
 AbstractCell::operator int() {
