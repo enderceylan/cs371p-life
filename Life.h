@@ -37,8 +37,9 @@ class AbstractCell
         virtual ~AbstractCell() {};
         //virtual void checkNeighbors() = 0; //
         //bool isValid();
-    private:
         bool alive;
+    private:
+        //bool alive;
         int age; //only need for Fredkin??
         
 };
@@ -65,7 +66,7 @@ class ConwayCell : public AbstractCell
         operator bool();
         AbstractCell* clone() const;
     private:
-        bool alive;
+        //bool alive;
         FRIEND_TEST(ConwayTest, constructor_0);
         FRIEND_TEST(ConwayTest, constructor_1);
         FRIEND_TEST(LifeTest, constructor_0);
@@ -104,7 +105,7 @@ class FredkinCell : public AbstractCell
         };
         AbstractCell* clone() const;
     private:
-        bool alive;
+        //bool alive;
         int age;
         FRIEND_TEST(FredkinTest, constructor_0);
         FRIEND_TEST(FredkinTest, constructor_1);
@@ -158,8 +159,8 @@ class Life
         void runBoard(int num_evols, int freq);
         void printBoard(void);
         bool inBounds(int x);
-        int countNeighbors(T& cell);
-        bool isAlive(int n, int i);
+        int countNeighbors(T& cell, int cell_index);
+        bool isAlive(int n, int i, int cell_index);
 
     private:
         std::vector<T> grid;
@@ -170,6 +171,7 @@ class Life
         FRIEND_TEST(LifeTest, constructor_0);
         FRIEND_TEST(LifeTest, constructor_1);
         FRIEND_TEST(LifeTest, constructor_2);
+        FRIEND_TEST(LifeTest, countNeighbors_0);
 };
 
 template<typename T>
@@ -193,6 +195,7 @@ Life<T>::Life(int num_rows, int num_cols, istream& r, ostream& w)
             }
             grid.push_back(T(c));
             //j += 1;
+            
         }
     }
 }
@@ -226,14 +229,16 @@ void Life<T>::runBoard(int num_evols, int freq) {
         }
     }
 }
-
+//To execute, first count neighbors for all cells
+//and then update status of each cell
 template<typename T>
 void Life<T>::executeTurn(void)
 {
     int popcount = 0;
     for (int i = 0; i < x_size*y_size; i++)
     {
-        grid[i].updateStatus(countNeighbors(at(i)));
+        //count number of neighbors and update
+        grid[i].updateStatus(countNeighbors(at(i), i));
         if (isAlive(grid[i].numOfNeighbors(),i))
         {
             popcount += 1;
@@ -244,14 +249,14 @@ void Life<T>::executeTurn(void)
 }
 
 template <typename T>
-int Life<T>::countNeighbors(T& cell) {
+int Life<T>::countNeighbors(T& cell, int cell_index) {
     int neighbors = 0;
     int n = cell.numOfNeighbors();
     //vector<NeighborAxis> n_axis = cell.neighborAxis();
 
     for(int i=0; i<n; i++) {
         //access grid, check if cell is alive and increment neighbors
-        if(isAlive(n, i)) {
+        if(isAlive(n, i, cell_index)) {
             neighbors++;
         }
     }
@@ -261,32 +266,62 @@ int Life<T>::countNeighbors(T& cell) {
 
 //determines if neighbor is alive depending on Conway/Fredkin and index
 template<typename T>
-bool Life<T>::isAlive(int n, int i) {
+bool Life<T>::isAlive(int n, int i, int cell_index) {
     //if ConwayCell
     if(n==8) {
         if(i==0) {
-            if (inBounds(i-1) && (at(i-1)) == true) {return true;}
+            //cout << "conway alive0" << endl;
+            //if(cell_index%y_size != 0){cout << "dddddd"<<endl;}
+            //check left side. make sure at(i) is not on left edge
+            if ((cell_index%y_size != 0) && inBounds(cell_index-1) && (at(cell_index-1)) ) {
+                cout << "this one alive" << endl;
+                return true;}
         }
         else if(i==1){
-            if (inBounds(i+1) && (at(i+1)) == true) {return true;}
+            //cout << "conway alive1" << endl;
+            //check right side. make sure at(i) is not on right edge
+            if ( ((cell_index+1)%y_size !=0) && inBounds(cell_index+1) && (at(cell_index+1)) ) {
+                //cout << "this one alive" << endl;
+                return true;}
         }
         else if(i==2){
-            if (inBounds(i-x_size) && (at(i-x_size)) == true) {return true;}
+            //cout << "conway alive2" << endl;
+            //if((at(cell_index-y_size)) == true) {cout << "aliveeeee" << endl;}
+            //check upper. make sure at(i) is not on first row
+            if ( ((cell_index-y_size) > 0) && inBounds(cell_index-y_size) && (at(cell_index-y_size)) ) {
+                //cout << "this one alive" << endl;
+                return true;}
         }
         else if(i==3){
-            if (inBounds(i-x_size-1) && (at(i-x_size-1)) == true) {return true;}
+            //cout << "conway alive3" << endl;
+            //check lower. make sure at(i) is not on last row
+            if ( ((cell_index+y_size) < (x_size*y_size)) && inBounds(cell_index+y_size) && (at(cell_index+y_size)) ) {
+                //cout << "this one alive" << endl;
+                return true;}
         }
         else if(i==4){
-            if (inBounds(i-x_size+1) && (at(i-x_size+1)) == true) {return true;}
+            //cout << "conway alive4" << endl;
+            if (inBounds(i-x_size+1) && (at(i-x_size+1)) == true) {
+                //cout << "this one alive" << endl;
+                return true;}
         }
         else if(i==5){
-            if (inBounds(i+x_size) && (at(i+x_size)) == true) {return true;}
+            //cout << "conway alive5" << endl;
+            if (inBounds(i+x_size) && (at(i+x_size)) == true) {
+                cout << "this one alive" << endl;
+                return true;}
         }
         else if(i==6){
-            if (inBounds(i+x_size-1) && (at(i+x_size-1)) == true) {return true;}
+            //cout << "conway alive6" << endl;
+            if (inBounds(i+x_size-1) && (at(i+x_size-1)) == true) {
+                cout << "this one alive" << endl;
+                return true;}
         }
         else if(i==7){
-            if (inBounds(i+x_size+1) && (at(i+x_size+1)) == true) {return true;}
+            //cout << "conway alive7" << endl;
+            if (inBounds(i+x_size+1) && (at(i+x_size+1)) == true) {
+                //cout << "this one alive" << endl;
+                return true;}
         }
     }
     //if FredkinCell
@@ -336,8 +371,9 @@ void Life<T>::printBoard(void)
 template<typename T>
 bool Life<T>::inBounds(int i)
 {
-    int x = i / x_size;
-    int y = i % x_size;
+    int x = i / y_size;
+    int y = i % y_size;
+    //cout << "inBounds: x: " << x << " y: " << y << endl;
     if (x >= x_size || x < 0 || y >= y_size || y < 0)
     {
         return false;

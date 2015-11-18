@@ -110,12 +110,6 @@ TEST(LifeTest, constructor_1) {
 	ASSERT_EQ(life.grid[3].printCell(), '1');
 }
 TEST(LifeTest, constructor_2) {
-	// istringstream r("-\n");
-	// ostringstream w;
-	// Life<Cell> life(1, 1, r, w);
-
-
-
 	istringstream r("--0*.-\n");
 	ostringstream w;
 	Life<Cell> life(1, 6, r, w);
@@ -124,11 +118,40 @@ TEST(LifeTest, constructor_2) {
 	if(!life.grid[1]) {result = true;}
 	ASSERT_EQ(result, true);
 	result = false;
-	if(life.grid[2]) {result = true;}
+	if(life.grid[2]==0) {result = true;}
 	ASSERT_EQ(result, true);
-	// ASSERT_EQ(life.grid[3], true);
+	result = false; 
+	
+	ASSERT_EQ(life.grid[3].printCell(), '*');
 	// ASSERT_EQ(life.grid[4], false);
+}
+//countNeighbors test
+TEST(LifeTest, countNeighbors_0) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
 
+    int n = life.countNeighbors(life.at(8), 8);
+    ASSERT_EQ(n, 2);
+}
+
+
+//inBounds test
+TEST(LifeTest, inBounds_0) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+
+    // for(int i=0;i<life.grid.size();i++) {
+    // 	cout << life.grid[i].printCell();
+    // }
+    // ConwayCell& c = life.at(2);
+    // bool b = false;
+    // if(c){b=true;}
+    // ASSERT_EQ(b, true);
+
+    
+    ASSERT_EQ(life.inBounds(15), true);
 }
 
 
