@@ -132,7 +132,9 @@ void Cell::updateStatus(int neighbors) {
         p = new ConwayCell('*');
     }
 }
-
+const int Cell::numOfNeighbors() const {
+    return p->numOfNeighbors();
+}
 
 //convert Cell to int. (returns age for Fredkin)
 Cell::operator int() {

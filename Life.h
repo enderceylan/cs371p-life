@@ -132,6 +132,7 @@ class Cell
 
         //AbstractCell* operator->() {return p;};
         void updateStatus(int neighbors); //one turn for a cell
+        const int numOfNeighbors() const;
         operator int();
         operator bool();
 
@@ -313,16 +314,24 @@ bool Life<T>::isAlive(int n, int i, int cell_index) {
     //if FredkinCell
     else if(n==4) {
         if(i==0){
-            if (inBounds(i-1) && (at(i-1)) == true) {return true;}
+            //check left
+            if ((cell_index%y_size != 0) && inBounds(cell_index-1) && (at(cell_index-1))) {
+                return true;}
         }
         if(i==1){
-            if (inBounds(i+1) && (at(i+1)) == true) {return true;}
+            //check right
+            if (((cell_index+1)%y_size !=0) && inBounds(cell_index+1) && (at(cell_index+1))) {
+                return true;}
         }
         if(i==2){
-            if (inBounds(i-x_size) && (at(i-x_size)) == true) {return true;}
+            //check upper
+            if (((cell_index-y_size) > 0) && inBounds(cell_index-y_size) && (at(cell_index-y_size))) {
+                return true;}
         }
         if(i==3){
-            if (inBounds(i+x_size) && (at(i+x_size)) == true) {return true;}
+            //check lower
+            if (((cell_index+y_size) < (x_size*y_size)) && inBounds(cell_index+y_size) && (at(cell_index+y_size))) {
+                return true;}
         }
     }
     return false;

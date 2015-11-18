@@ -134,6 +134,30 @@ TEST(LifeTest, countNeighbors_0) {
     int n = life.countNeighbors(life.at(8), 8);
     ASSERT_EQ(n, 8);
 }
+TEST(LifeTest, countNeighbors_1) {
+	istringstream r("-0-\n000\n-0-");
+	ostringstream w;
+	Life<FredkinCell> life(3, 3, r, w);
+
+	int n = life.countNeighbors(life.at(4), 4);
+	ASSERT_EQ(n, 4);
+}
+TEST(LifeTest, countNeighbors_2) {
+	istringstream r("-0-\n-00\n-0-");
+	ostringstream w;
+	Life<Cell> life(3, 3, r, w);
+
+	int n = life.countNeighbors(life.at(4), 4);
+	ASSERT_EQ(n, 3);
+}
+TEST(LifeTest, countNeighbors_3) {
+    istringstream r(".***..\n.***..\n.**...\n");
+    ostringstream w;
+    Life<Cell> life(3, 6, r, w);
+
+    int n = life.countNeighbors(life.at(8), 8);
+    ASSERT_EQ(n, 7);
+}
 
 
 //inBounds test
@@ -141,15 +165,6 @@ TEST(LifeTest, inBounds_0) {
     istringstream r("..*...\n..*...\n..*...\n");
     ostringstream w;
     Life<ConwayCell> life(3, 6, r, w);
-
-    // for(int i=0;i<life.grid.size();i++) {
-    // 	cout << life.grid[i].printCell();
-    // }
-    // ConwayCell& c = life.at(2);
-    // bool b = false;
-    // if(c){b=true;}
-    // ASSERT_EQ(b, true);
-
     
     ASSERT_EQ(life.inBounds(15), true);
 }
