@@ -10,7 +10,7 @@
 #include <map>
 #include <cstring>
 #include <vector>
-
+#include "gtest/gtest_prod.h"
 using namespace std;
 
 // class Cell;
@@ -63,6 +63,9 @@ class ConwayCell : public AbstractCell
         //AbstractCell* clone() const;
     private:
         bool alive;
+        FRIEND_TEST(ConwayTest, constructor_0);
+        FRIEND_TEST(ConwayTest, constructor_1);
+        FRIEND_TEST(LifeTest, constructor_0);
 };
 
 class FredkinCell : public AbstractCell
@@ -99,6 +102,8 @@ class FredkinCell : public AbstractCell
     private:
         bool alive;
         int age;
+        FRIEND_TEST(FredkinTest, constructor_0);
+        FRIEND_TEST(FredkinTest, constructor_1);
 };
 
 class Cell
@@ -145,6 +150,7 @@ class Life
         int y_size;
         int generation;
         int population;
+        FRIEND_TEST(LifeTest, constructor_0);
 };
 
 template<typename T>

@@ -340,7 +340,7 @@ void Cell::updateStatus(int neighbors) {
     //p->updateStatus();
     //set to ConwayCell if age is 2
     if(*p == 2) {
-        delete p; 
+        //delete p; 
         p = new ConwayCell('*');
     }
 }

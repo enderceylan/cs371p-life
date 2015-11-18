@@ -98,3 +98,5 @@ TestLife.tmp: TestLife
 	cat TestLife.tmp
 
 r: RunLife.tmp
+
+t: TestLife.tmp
