@@ -106,29 +106,29 @@ Cell::Cell(char c) {
     else
         p = new FredkinCell(c);
 }
-// //copy constructor
-// Cell::Cell(const Cell& c) {
-//     if(!c.p)
-//         p = 0;
-//     else
-//         p = c.p->clone();
-// }
-// //copy assignment
-// Cell& Cell::operator = (Cell c) {
-//     swap(p, c.p);
-//     return *this;
-// }
-// //destructor
-// Cell::~Cell() {
-//     delete p;
-// }
+//copy constructor
+Cell::Cell(const Cell& c) {
+    if(!c.p)
+        p = 0;
+    else
+        p = c.p->clone();
+}
+//copy assignment
+Cell& Cell::operator = (Cell c) {
+    swap(p, c.p);
+    return *this;
+}
+//destructor
+Cell::~Cell() {
+    delete p;
+}
 
 //modify state of Cell on a turn after neighbors have been set
 void Cell::updateStatus(int neighbors) {
-    //p->updateStatus();
+    p->updateStatus(neighbors);
     //set to ConwayCell if age is 2
     if(*p == 2) {
-        //delete p; 
+        delete p; 
         p = new ConwayCell('*');
     }
 }
@@ -182,9 +182,9 @@ ConwayCell::operator bool() {
     return alive;
 }
 
-// AbstractCell* ConwayCell::clone() const {
-//     return new ConwayCell(*this);
-// }
+AbstractCell* ConwayCell::clone() const {
+    return new ConwayCell(*this);
+}
 
 
 
@@ -226,6 +226,6 @@ const int FredkinCell::numOfNeighbors() const {
     return 4; 
 }
 
-// AbstractCell* FredkinCell::clone() const {
-//     return new FredkinCell(*this);
-// }
+AbstractCell* FredkinCell::clone() const {
+    return new FredkinCell(*this);
+}

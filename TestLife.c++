@@ -109,17 +109,27 @@ TEST(LifeTest, constructor_1) {
 	ASSERT_EQ(life.grid[2].printCell(), '0');
 	ASSERT_EQ(life.grid[3].printCell(), '1');
 }
-// TEST(LifeTest, constructor_2) {
-// 	istringstream r("--0*.-\n");
-// 	ostringstream w;
-// 	Life<Cell> life(1, 6, r, w);
+TEST(LifeTest, constructor_2) {
+	// istringstream r("-\n");
+	// ostringstream w;
+	// Life<Cell> life(1, 1, r, w);
 
-// 	ASSERT_EQ(life.grid[1].alive, false);
-// 	ASSERT_EQ(life.grid[2].alive, true);
-// 	ASSERT_EQ(life.grid[3].alive, true);
-// 	ASSERT_EQ(life.grid[4].alive, false);
 
-// }
+
+	istringstream r("--0*.-\n");
+	ostringstream w;
+	Life<Cell> life(1, 6, r, w);
+
+	bool result = false;
+	if(!life.grid[1]) {result = true;}
+	ASSERT_EQ(result, true);
+	result = false;
+	if(life.grid[2]) {result = true;}
+	ASSERT_EQ(result, true);
+	// ASSERT_EQ(life.grid[3], true);
+	// ASSERT_EQ(life.grid[4], false);
+
+}
 
 
 // TEST(LifeTest, constructor_1) {

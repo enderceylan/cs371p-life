@@ -33,7 +33,8 @@ class AbstractCell
         virtual const int numOfNeighbors() const = 0;
         virtual char printCell() = 0;
 
-        //virtual AbstractCell* clone() const = 0;
+        virtual AbstractCell* clone() const = 0;
+        virtual ~AbstractCell() {};
         //virtual void checkNeighbors() = 0; //
         //bool isValid();
     private:
@@ -62,7 +63,7 @@ class ConwayCell : public AbstractCell
             }
         };
         operator bool();
-        //AbstractCell* clone() const;
+        AbstractCell* clone() const;
     private:
         bool alive;
         FRIEND_TEST(ConwayTest, constructor_0);
@@ -101,7 +102,7 @@ class FredkinCell : public AbstractCell
                 return '-';
             }
         };
-        //AbstractCell* clone() const;
+        AbstractCell* clone() const;
     private:
         bool alive;
         int age;
@@ -124,9 +125,9 @@ class Cell
         //Cell() : p(FredkinCell()) {};
         Cell(char c);
         
-        // Cell(const Cell&);
-        // Cell& operator = (Cell);
-        // ~Cell();
+        Cell(const Cell&);
+        Cell& operator = (Cell);
+        ~Cell();
 
         //AbstractCell* operator->() {return p;};
         void updateStatus(int neighbors); //one turn for a cell
@@ -187,6 +188,9 @@ Life<T>::Life(int num_rows, int num_cols, istream& r, ostream& w)
         //int j = 0;
         for (char& c : s)
         {
+            if(c != '.' && c != '-') {
+                population++;
+            }
             grid.push_back(T(c));
             //j += 1;
         }
