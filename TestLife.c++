@@ -127,12 +127,12 @@ TEST(LifeTest, constructor_2) {
 }
 //countNeighbors test
 TEST(LifeTest, countNeighbors_0) {
-    istringstream r("..*...\n..*...\n..*...\n");
+    istringstream r(".***..\n.***..\n.***..\n");
     ostringstream w;
     Life<ConwayCell> life(3, 6, r, w);
 
     int n = life.countNeighbors(life.at(8), 8);
-    ASSERT_EQ(n, 2);
+    ASSERT_EQ(n, 8);
 }
 
 

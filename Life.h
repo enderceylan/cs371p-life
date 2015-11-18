@@ -270,57 +270,43 @@ bool Life<T>::isAlive(int n, int i, int cell_index) {
     //if ConwayCell
     if(n==8) {
         if(i==0) {
-            //cout << "conway alive0" << endl;
-            //if(cell_index%y_size != 0){cout << "dddddd"<<endl;}
             //check left side. make sure at(i) is not on left edge
             if ((cell_index%y_size != 0) && inBounds(cell_index-1) && (at(cell_index-1)) ) {
-                cout << "this one alive" << endl;
                 return true;}
         }
         else if(i==1){
-            //cout << "conway alive1" << endl;
             //check right side. make sure at(i) is not on right edge
             if ( ((cell_index+1)%y_size !=0) && inBounds(cell_index+1) && (at(cell_index+1)) ) {
-                //cout << "this one alive" << endl;
                 return true;}
         }
         else if(i==2){
-            //cout << "conway alive2" << endl;
-            //if((at(cell_index-y_size)) == true) {cout << "aliveeeee" << endl;}
             //check upper. make sure at(i) is not on first row
             if ( ((cell_index-y_size) > 0) && inBounds(cell_index-y_size) && (at(cell_index-y_size)) ) {
-                //cout << "this one alive" << endl;
                 return true;}
         }
         else if(i==3){
-            //cout << "conway alive3" << endl;
             //check lower. make sure at(i) is not on last row
             if ( ((cell_index+y_size) < (x_size*y_size)) && inBounds(cell_index+y_size) && (at(cell_index+y_size)) ) {
-                //cout << "this one alive" << endl;
                 return true;}
         }
         else if(i==4){
-            //cout << "conway alive4" << endl;
-            if (inBounds(i-x_size+1) && (at(i-x_size+1)) == true) {
-                //cout << "this one alive" << endl;
+            //check upper left. 
+            if ( (cell_index%y_size != 0) &&  ((cell_index-1-y_size) > 0) && inBounds(cell_index-y_size-1) && (at(cell_index-y_size-1)) ) {
                 return true;}
         }
         else if(i==5){
-            //cout << "conway alive5" << endl;
-            if (inBounds(i+x_size) && (at(i+x_size)) == true) {
-                cout << "this one alive" << endl;
+            //check upper right. 
+            if ( ((cell_index+1)%y_size !=0) && ((cell_index+1-y_size) > 0)  &&  inBounds(cell_index+1-y_size) && (at(cell_index+1-y_size)) ) {
                 return true;}
         }
         else if(i==6){
-            //cout << "conway alive6" << endl;
-            if (inBounds(i+x_size-1) && (at(i+x_size-1)) == true) {
-                cout << "this one alive" << endl;
+            //check lower left. 
+            if ( (cell_index%y_size != 0) && ((cell_index-1+y_size) < (x_size*y_size)) && inBounds(cell_index-1+y_size) && (at(cell_index-1+y_size)) ) {
                 return true;}
         }
         else if(i==7){
-            //cout << "conway alive7" << endl;
-            if (inBounds(i+x_size+1) && (at(i+x_size+1)) == true) {
-                //cout << "this one alive" << endl;
+            //check lower right. 
+            if ( ((cell_index+1)%y_size !=0) && ((cell_index+1+y_size) < (x_size*y_size)) && inBounds(cell_index+y_size+1) && (at(cell_index+y_size+1)) ) {
                 return true;}
         }
     }
