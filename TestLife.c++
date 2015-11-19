@@ -168,6 +168,21 @@ TEST(LifeTest, inBounds_0) {
     
     ASSERT_EQ(life.inBounds(15), true);
 }
+TEST(LifeTest, inBounds_1) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    
+    ASSERT_EQ(life.inBounds(20), false);
+}
+TEST(LifeTest, inBounds_2) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    
+    ASSERT_EQ(life.inBounds(-2), false);
+}
+
 
 
 // TEST(LifeTest, constructor_1) {

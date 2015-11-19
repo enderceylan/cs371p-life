@@ -221,12 +221,15 @@ T* Life<T>::end()
 
 template<typename T>
 void Life<T>::runBoard(int num_evols, int freq) {
+    int pIndex = freq;
+    printBoard();
     for (int i = 0; i < num_evols; i++)
     {
         executeTurn();
-        if (i % freq == 0)
+        if (i == pIndex-1)
         {
             printBoard();
+            pIndex += freq;
         }
     }
 }
@@ -236,14 +239,19 @@ template<typename T>
 void Life<T>::executeTurn(void)
 {
     int popcount = 0;
+    vector<int> neighborList = vector<int>();
+    for (int a = 0; a < x_size*y_size; a++)
+    {
+        neighborList.push_back(countNeighbors(at(a),a));
+    }
     for (int i = 0; i < x_size*y_size; i++)
     {
         //count number of neighbors and update
-        grid[i].updateStatus(countNeighbors(at(i), i));
-        // if (isAlive(grid[i].numOfNeighbors(), i, ))
-        // {
-        //     popcount += 1;
-        // }
+        grid[i].updateStatus(neighborList.at(i));
+        if (grid[i])
+        {
+            popcount += 1;
+        }
 
         //first count neighbors of all cells
         //update all cells (set alive and dead) all at the same time
@@ -345,7 +353,7 @@ bool Life<T>::isAlive(int n, int i, int cell_index) {
 template<typename T>
 T& Life<T>::at(int x, int y)
 {
-    return grid[x_size*x + y];
+    return grid[y_size*x + y];
 }
 template<typename T>
 T& Life<T>::at(int i)

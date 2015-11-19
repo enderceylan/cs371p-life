@@ -204,12 +204,13 @@ void FredkinCell::updateStatus(int neighbors) {
     if (alive == false && neighbors % 2 == 1)
     {
         alive = true;
+        age = 0;
     }
-    if (alive == true && neighbors % 2 == 0)
+    else if (alive == true && neighbors % 2 == 0)
     {
         alive = false;
     }
-    if (alive == true)
+    else if (alive == true)
     {
         age += 1;
     }

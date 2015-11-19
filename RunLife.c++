@@ -91,6 +91,7 @@ void life_parser(istream& r, ostream& w)
         //construct Life 
         if (cellType == "ConwayCell")
         {
+            cout << "*** Life<ConwayCell> " << num_rows << "x" << num_cols << " ***" << endl << endl;
             //Life<ConwayCell> life = Life<ConwayCell>(num_rows, num_cols);
             //Life<ConwayCell> life(num_rows, num_cols);
             Life<ConwayCell> life(num_rows, num_cols, r, w);
@@ -103,22 +104,24 @@ void life_parser(istream& r, ostream& w)
         }
         else if (cellType == "FredkinCell")
         {
+            cout << "*** Life<FredkinCell> " << num_rows << "x" << num_cols << " ***" << endl << endl;
             //Life<FredkinCell> life = Life<FredkinCell>(num_rows, num_cols);
             Life<FredkinCell> life(num_rows, num_cols, r, w);
             //add cells to grid
             //life.addCellsToGrid(r, w, num_rows);
             //runBoard(life);
-            //life.runBoard(num_evols, freq);
+            life.runBoard(num_evols, freq);
             getline(r,s);
         }
         else
         {
+            cout << "*** Life<Cell> " << num_rows << "x" << num_cols << " ***" << endl << endl;
             //Life<Cell> life = Life<Cell>(num_rows, num_cols); //Cell::Cell(char c) takes care of this case 
             Life<Cell> life(num_rows, num_cols, r, w);
             //add cells to grid 
             //life.addCellsToGrid(r, w, num_rows);
             //runBoard(life);
-            //life.runBoard(num_evols, freq);
+            life.runBoard(num_evols, freq);
             getline(r,s);
         }
 
