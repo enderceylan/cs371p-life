@@ -14,75 +14,7 @@
 #include <cstring>
 #include <vector>
 
-
 using namespace std;
-
-
-// IMPLEMENTATIONS FOR LIFE CLASS
-
-/*
-    Darwin::Darwin(int x, int y)
-    Constructor for Darwin class. Initializes variables and full grid.
-    Input: x is the height of the grid. y is the width of the grid.
-    Output: n/a
-*/
-// template<typename T>
-// Life<T>::Life(int x, int y)
-// {
-//     x_size = x;
-//     y_size = y;
-//     generation = 0;
-//     population = 0;
-//     for (int i = 0; i < x_size*y_size; i++)
-//     {
-//         grid.push_back(new T());
-//     }
-// }
-
-
-// /*
-//     Darwin::addCreature(Creature c, int x, int y)
-//     Places a new Creature onto the grid.
-//     Input: c is the Creature to be placed on the grid. x and y are the coordinates
-//     where c will be placed.
-//     Output: n/a
-// */
-// template<typename T>
-// void Life<T>::addCell(T t, int x, int y)
-// {
-//     grid[x*x_size + y] = t;
-// }
-// //add individual cells to grid
-// template<typename T>
-// void Life<T>::addCellsToGrid(istream& r, ostream& w, int num_rows) {
-//     string s;
-//     for (int i = 0; i < num_rows; i++)
-//     {
-//         getline(r,s);
-//         //char* gridline = (char*) s;
-//         int j = 0;
-//         for (char& c : s)
-//         {
-//             if (c == '.')
-//             {
-//                 addCell(T(c),i,j);
-//             }
-//             if (c == '-')
-//             {
-//                 addCell(T(c),i,j);
-//             }
-//             if (c == '*')
-//             {
-//                 addCell(T(c),i,j);
-//             }
-//             if (c == '0')
-//             {
-//                 addCell(T(c),i,j);
-//             }
-//             j += 1;
-//         }
-//     }
-// }
 
 
 
@@ -92,8 +24,6 @@ AbstractCell::operator int() {
 AbstractCell::operator bool() {
     return alive;
 }
-
-
 
 
 
@@ -192,8 +122,10 @@ AbstractCell* ConwayCell::clone() const {
 
 //construct FredkinCell depending on input
 FredkinCell::FredkinCell(char c) {
-    if(c=='-')
+    if(c=='-') {
         alive = false;
+        age = 0;
+    }
     else {
         alive = true;
         age = c - '0';
@@ -204,7 +136,7 @@ void FredkinCell::updateStatus(int neighbors) {
     if (alive == false && neighbors % 2 == 1)
     {
         alive = true;
-        age = 0;
+        //age = 0;
     }
     else if (alive == true && neighbors % 2 == 0)
     {
