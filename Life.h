@@ -14,7 +14,6 @@
 
 using namespace std;
 
-
 class AbstractCell
 {
     public:
@@ -136,8 +135,8 @@ class Life
         T& at(int i);
         void executeTurn(void);
         void removeCell(int x, int y);
-        void runBoard(int num_evols, int freq);
-        void printBoard(void);
+        void runBoard(int num_evols, int freq, bool start);
+        void printBoard(bool start);
         bool inBounds(int x);
         int countNeighbors(T& cell, int cell_index);
         bool isAlive(int n, int i, int cell_index);
@@ -195,18 +194,20 @@ T* Life<T>::end()
 }
 
 template<typename T>
-void Life<T>::runBoard(int num_evols, int freq) {
+void Life<T>::runBoard(int num_evols, int freq, bool start) {
+    //start = false;
     int pIndex = freq;
-    printBoard();
+    printBoard(start);
     for (int i = 0; i < num_evols; i++)
     {
         executeTurn();
         if (i == pIndex-1)
         {
-            printBoard();
+            printBoard(start);
             pIndex += freq;
         }
     }
+    start = true;
 }
 //To execute, first count neighbors for all cells
 //and then update status of each cell
@@ -334,9 +335,17 @@ T& Life<T>::at(int i)
 }
 
 template<typename T>
-void Life<T>::printBoard(void)
+void Life<T>::printBoard(bool start)
 {
-    cout << "Generation = " << generation << ", Population = " << population << "." << endl;
+    if(!start) {
+        cout << "Generation = " << generation << ", Population = " << population << "." << endl;
+        start = false;
+    }
+    else {
+    cout <<endl<< "Generation = " << generation << ", Population = " << population << "." << endl;
+    }
+    //cout << "Generation = " << generation << ", Population = " << population << "." << endl;
+
     for (int k = 0; k < x_size; k++)
     {
         for (int j = 0; j < y_size; j++)
@@ -345,7 +354,7 @@ void Life<T>::printBoard(void)
         }
         cout << endl;
     }
-    cout << endl;
+    //cout << endl;
 }
 
 template<typename T>

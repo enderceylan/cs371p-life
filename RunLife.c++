@@ -34,6 +34,7 @@ int life_read_int (istream& r, ostream& w) {
 void life_parser(istream& r, ostream& w)
 {
     string s;
+    int first = 0;
     while (getline(r, s)) {
         string cellType = s;
 
@@ -41,32 +42,60 @@ void life_parser(istream& r, ostream& w)
         num_cols = life_read_int(r, w);
         num_evols = life_read_int(r, w);
         freq = life_read_int(r, w);
+
+        bool start = true;
         
         //construct Life 
         if (cellType == "ConwayCell")
         {
-            cout << "*** Life<ConwayCell> " << num_rows << "x" << num_cols << " ***" << endl << endl;
+            if(first==0) {
+                cout << "*** Life<ConwayCell> " << num_rows << "x" << num_cols << " ***" << endl;
+
+            }
+            else {
+                cout<<endl << "*** Life<ConwayCell> " << num_rows << "x" << num_cols << " ***" << endl;
+            }
+            //cout << "*** Life<ConwayCell> " << num_rows << "x" << num_cols << " ***" << endl;
             Life<ConwayCell> life(num_rows, num_cols, r, w);
 
-            life.runBoard(num_evols, freq);    
+            life.runBoard(num_evols, freq, start);    
             getline(r,s);
+            first++;
 
         }
         else if (cellType == "FredkinCell")
         {
-            cout << "*** Life<FredkinCell> " << num_rows << "x" << num_cols << " ***" << endl << endl;
+            if(first==0) {
+                cout << "*** Life<FredkinCell> " << num_rows << "x" << num_cols << " ***" << endl;
+
+            }
+            else {
+                cout<<endl << "*** Life<FredkinCell> " << num_rows << "x" << num_cols << " ***" << endl;
+            }
+            first++;
+            //cout << "*** Life<FredkinCell> " << num_rows << "x" << num_cols << " ***" << endl;
             Life<FredkinCell> life(num_rows, num_cols, r, w);
 
-            life.runBoard(num_evols, freq);
+            life.runBoard(num_evols, freq, start);
             getline(r,s);
+            first++;
         }
         else
         {
-            cout << "*** Life<Cell> " << num_rows << "x" << num_cols << " ***" << endl << endl;
+            if(first==0) {
+                cout << "*** Life<Cell> " << num_rows << "x" << num_cols << " ***" << endl;
+
+            }
+            else {
+                cout<<endl << "*** Life<Cell> " << num_rows << "x" << num_cols << " ***" << endl;
+            }
+            first++;
+            //cout << "*** Life<Cell> " << num_rows << "x" << num_cols << " ***" << endl;
             Life<Cell> life(num_rows, num_cols, r, w);
  
-            life.runBoard(num_evols, freq);
+            life.runBoard(num_evols, freq, start);
             getline(r,s);
+            first++;
         }
 
     }
