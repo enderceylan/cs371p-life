@@ -15,7 +15,7 @@ FILES :=                              \
 
 CXX        := g++-4.8
 CXXFLAGS   := -pedantic -std=c++11 -Wall
-LDFLAGS    := -lgtest -lgtest_main -pthread -DCACHE
+LDFLAGS    := -lgtest -lgtest_main -lpthread
 GCOV       := gcov-4.8
 GCOVFLAGS  := -fprofile-arcs -ftest-coverage
 GPROF      := gprof
