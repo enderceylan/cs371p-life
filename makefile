@@ -15,7 +15,7 @@ FILES :=                              \
 
 CXX        := g++-4.8
 CXXFLAGS   := -pedantic -std=c++11 -Wall
-LDFLAGS    := -lgtest -lgtest_main -lpthread
+LDFLAGS    := -lgtest -lgtest_main -pthread -DCACHE
 GCOV       := gcov-4.8
 GCOVFLAGS  := -fprofile-arcs -ftest-coverage
 GPROF      := gprof
@@ -93,7 +93,7 @@ TestLife: Life.h Life.c++ TestLife.c++
 
 TestLife.tmp: TestLife
 	$(VALGRIND) ./TestLife                                       >  TestLife.tmp 2>&1
-	$(GCOV) -b Life.c++     | grep -A 5 "File 'Life.c++'"     >> TestLife.tmp
+	$(GCOV) -b TestLife.c++     | grep -A 5 "File 'Life.c++'"     >> TestLife.tmp
 	$(GCOV) -b TestLife.c++ | grep -A 5 "File 'TestLife.c++'" >> TestLife.tmp
 	cat TestLife.tmp
 
