@@ -39,7 +39,7 @@ check:
         echo "$$not_found failures";              \
         exit 1;                                   \
     fi;                                           \
-    echo "success";
+    echo "success";   
 
 clean:
 	rm -f *.gcda
