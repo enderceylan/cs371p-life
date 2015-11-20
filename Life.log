@@ -1,0 +1,246 @@
+commit 30808829a3833414d13618600424979262c60ef4
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 20:41:55 2015 -0600
+
+    eee
+
+commit ff41536c519478938faa7bc58aae5f6cbe9fd157
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 20:39:40 2015 -0600
+
+    ddd
+
+commit 0ff8c8be35a8baa768fbd96d5e2b1509eaf4d02d
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 20:36:25 2015 -0600
+
+    ccc
+
+commit 7497531450d8120ddee253abb1f67be0ccf9f5ea
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 20:32:50 2015 -0600
+
+    bbb
+
+commit 357010f81af1510d05271d55cc502a8bda40ed1e
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 20:24:48 2015 -0600
+
+    aaa
+
+commit 85d7631d6ed837dd0d677b5c0fb366c3ec54487b
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 20:21:45 2015 -0600
+
+    hhhhh
+
+commit 15b1e00f2bc496a73641bc47dd8f045ac1d11e9f
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 20:15:43 2015 -0600
+
+    assassasasas
+
+commit e37b5fe1822d3a398cb444104e62755514ecf737
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 20:00:56 2015 -0600
+
+    assaaaaaaa
+
+commit 7c577cf5a70d158f51991005080db1fb2e975ea2
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 19:55:36 2015 -0600
+
+    assasasa
+
+commit 5de0eb6646adab2fd50ed520393d748dfd736f5a
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 19:48:17 2015 -0600
+
+    Added doxygen. closes #10 and closes #14
+
+commit 1c227cc8ccd87a469dd04ea2ff55d6f0da8b1156
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 19:43:52 2015 -0600
+
+    Changed tests
+
+commit 165605c6d8dc0c0bae4366004792111ef1301928
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 19:40:09 2015 -0600
+
+    Changed test files
+
+commit 345466d7b82d05b6ff9cff95ec44b7e62cd10178
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 19:23:00 2015 -0600
+
+    Finished tests. Closes #9, closes #12
+
+commit fd38ca5522e7a8e124d05bab37ed84d27df6299c
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Thu Nov 19 18:55:17 2015 -0600
+
+    unit tests
+
+commit 2be0dd5dadface03e709ae69937e51d9b58040c8
+Merge: 2b757d6 7fcd18d
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Thu Nov 19 17:08:57 2015 -0600
+
+    Merge branch 'master' of https://github.com/enderceylan/cs371p-life
+
+commit 2b757d60bc4fd494e164a677809a0a381f0a8b15
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Thu Nov 19 17:07:31 2015 -0600
+
+    now outputs one newline at the end
+
+commit 7fcd18d67a74854e2fa41d4a75b27e37bb0ee27c
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 19 11:59:23 2015 -0600
+
+    Added pdf file, closes #13
+
+commit 21aeea036b11f718958b4d80a66a9df4666a3e20
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 20:01:23 2015 -0600
+
+    housekeeping
+
+commit 869de4f2bae6594f5b4e2030d9046a3297854846
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Wed Nov 18 18:48:24 2015 -0600
+
+    Have RunLife tests working
+
+commit 6168ffd8738a00b36baffe60925368f5240e2472
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 17:52:20 2015 -0600
+
+    have to work on executeTurn
+
+commit e5634b5daa4732824aca5d1d4d9f700b612eaf41
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 17:39:25 2015 -0600
+
+    countNeighbor works for all cells
+
+commit 4536192d922f071c7d1fbddd1416f581175b3278
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 17:21:50 2015 -0600
+
+    isAlive for Conway works
+
+commit 95180e0ea7c19469b651f82023377d8d24549e7e
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 16:50:14 2015 -0600
+
+    debugging isAlive()
+
+commit 14df4648041376c0d87c2d75b7ad8e44d840a06a
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 12:41:45 2015 -0600
+
+    Life Cell constructor not causing memory leaks. More bugs to fix tho
+
+commit 8122787ad8e673328597c469ce10113874de4db7
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 03:52:03 2015 -0600
+
+    unit tests for constructors
+
+commit 2edbe387332277fc3581a11361bbf2448e958f52
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 00:42:33 2015 -0600
+
+    start unit tests
+
+commit d0b32f2967136d7b66cc8d882d50f76b4a116838
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Wed Nov 18 00:41:43 2015 -0600
+
+    started to write unit tests
+
+commit fcd9a1baa1a89b3aed8ca6db55cb75bae5956d97
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Tue Nov 17 19:13:54 2015 -0600
+
+    printing out stuff but memory leaks
+
+commit b51c99e70eafc4b6a6e3ab5f15c5388abea68fde
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Tue Nov 17 15:17:26 2015 -0600
+
+    wrote new constructor. still undefined reference error
+
+commit 9bb822e40c4e5b3aa6983912ccf89493a7b57bc2
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Tue Nov 17 11:03:52 2015 -0600
+
+    cut down some bugs. RunLife.c++ still complaining undefined reference
+
+commit e74518aa2754554ed33a439780c8e852cb0c48b8
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Tue Nov 17 02:55:02 2015 -0600
+
+    added copy constructor but no difference (commented out)
+
+commit 99b14bf267cbefd42c6aa41991ae398a55d69443
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Tue Nov 17 02:28:07 2015 -0600
+
+    undefined referrence error. what???
+
+commit 7b921298910348a2530f3833a8f769a3fb61fa0d
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Tue Nov 17 00:26:40 2015 -0600
+
+    most bug fixed but Life is constructed out of scope. Might have to change how how we read input
+
+commit af9ca299a3e9862678efc92f583386b271c9ec23
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Mon Nov 16 20:49:55 2015 -0600
+
+    Fixed some bugs
+
+commit 5e0004f4c951580391a56d948cd81381f0fa0541
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Mon Nov 16 18:22:38 2015 -0600
+
+    tried to write a new constructor but decided not to. added some comments
+
+commit 578b77c7bc6fe25160e5f1ba378278372ad5a21d
+Author: Lawrence Choi <lyc99@utexas.edu>
+Date:   Mon Nov 16 11:47:29 2015 -0600
+
+    wrote some code for counting neighbors without getter (not tested yet)
+
+commit cf5ca603af5a257877b42d0d3a6c5adc61a5d864
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Sun Nov 15 15:33:33 2015 -0600
+
+    Added parsing function, more implementations
+
+commit 06960a8a4dc1aef5bb829610d064d10e69ae03e9
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Sat Nov 14 17:25:26 2015 -0600
+
+    Header file written. Closes #4, closes #5, closes #6, closes #7, closes #8
+
+commit 3a8d8cc5b5d41a9e5413bb347d48eace1061759a
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Sat Nov 14 17:23:40 2015 -0600
+
+    Added
+
+commit 6a4665c8cb0d105bd0edcb1d330686ae9bd4c16f
+Author: Ender Ceylan <endcey95@gmail.com>
+Date:   Thu Nov 12 18:31:52 2015 -0600
+
+    Set up files. Closes #1, closes #2, closes #3
+
+commit b6af8e31bfbe0e047a91ad7520aaf7d33fc30f3f
+Author: Ender Ceylan <enderceylan@users.noreply.github.com>
+Date:   Thu Nov 12 18:14:58 2015 -0600
+
+    Initial commit
