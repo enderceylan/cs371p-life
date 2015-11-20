@@ -67,7 +67,7 @@ status:
 	git remote -v
 	git status
 
-test: TestLife.tmp RunLife.tmp
+test: RunLife.tmp TestLife.tmp
 
 life-tests:
 	git clone https://github.com/cs371p-fall-2015/life-tests.git
@@ -93,7 +93,7 @@ TestLife: Life.h Life.c++ TestLife.c++
 
 TestLife.tmp: TestLife
 	$(VALGRIND) ./TestLife                                       >  TestLife.tmp 2>&1
-	$(GCOV) -b Life.c++     | grep -A 5 "File 'Life.c++'"     >> TestLife.tmp
+	$(GCOV) -b RunLife.c++     | grep -A 5 "File 'RunLife.c++'"     >> TestLife.tmp
 	$(GCOV) -b TestLife.c++ | grep -A 5 "File 'TestLife.c++'" >> TestLife.tmp
 	cat TestLife.tmp
 
