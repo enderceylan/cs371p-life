@@ -134,7 +134,6 @@ class Life
         T& at(int x, int y);
         T& at(int i);
         void executeTurn(void);
-        void removeCell(int x, int y);
         void runBoard(int num_evols, int freq, bool start);
         void printBoard(bool start);
         bool inBounds(int x);
@@ -151,6 +150,8 @@ class Life
         FRIEND_TEST(LifeTest, constructor_1);
         FRIEND_TEST(LifeTest, constructor_2);
         FRIEND_TEST(LifeTest, countNeighbors_0);
+        FRIEND_TEST(LifeTest, iteration_0);
+        FRIEND_TEST(LifeTest, iteration_2);
 };
 
 template<typename T>
@@ -176,12 +177,6 @@ Life<T>::Life(int num_rows, int num_cols, istream& r, ostream& w)
 }
 
 template<typename T>
-void Life<T>::removeCell(int x, int y)
-{
-    grid[x*x_size + y] = T();
-}
-
-template<typename T>
 T* Life<T>::begin()
 {
     return &grid[0];
@@ -190,7 +185,7 @@ T* Life<T>::begin()
 template<typename T>
 T* Life<T>::end()
 {
-    return &grid[x_size*y_size];
+    return &grid[(x_size*y_size)-1];
 }
 
 template<typename T>
@@ -344,7 +339,6 @@ void Life<T>::printBoard(bool start)
     else {
     cout <<endl<< "Generation = " << generation << ", Population = " << population << "." << endl;
     }
-    //cout << "Generation = " << generation << ", Population = " << population << "." << endl;
 
     for (int k = 0; k < x_size; k++)
     {
@@ -354,7 +348,6 @@ void Life<T>::printBoard(bool start)
         }
         cout << endl;
     }
-    //cout << endl;
 }
 
 template<typename T>
@@ -371,7 +364,5 @@ bool Life<T>::inBounds(int i)
         return true;
     }
 }
-
-
 
 #endif

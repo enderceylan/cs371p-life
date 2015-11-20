@@ -13,7 +13,7 @@ using namespace std;
 // ----
 // ConwayCell
 // ----
-
+//constructor
 TEST(ConwayTest, constructor_0) {
 	ConwayCell c = ConwayCell('*');
 	ASSERT_EQ(c.alive, true);
@@ -23,10 +23,39 @@ TEST(ConwayTest, constructor_1) {
 	ASSERT_EQ(c.alive, false);
 }
 
+TEST(ConwayTest, updateStatus_0) {
+	ConwayCell c = ConwayCell('.');
+	c.updateStatus(3);
+	bool result = false;
+	if(c) {result = true;}
+	ASSERT_EQ(result, true);
+}
+TEST(ConwayTest, updateStatus_1) {
+	ConwayCell c = ConwayCell('.');
+	c.updateStatus(0);
+	bool result = false;
+	if(!c) {result = true;}
+	ASSERT_EQ(result, true);
+}
+TEST(ConwayTest, updateStatus_2) {
+	ConwayCell c = ConwayCell('*');
+	c.updateStatus(1);
+	bool result = false;
+	if(!c) {result = true;}
+	ASSERT_EQ(result, true);
+}
+TEST(ConwayTest, updateStatus_3) {
+	ConwayCell c = ConwayCell('*');
+	c.updateStatus(5);
+	bool result = false;
+	if(!c) {result = true;}
+	ASSERT_EQ(result, true);
+}
 
 // ----
 // FredkinCell
 // ----
+//constructor
 TEST(FredkinTest, constructor_0) {
 	FredkinCell f = FredkinCell('-');
 	ASSERT_EQ(f.alive, false);
@@ -36,7 +65,35 @@ TEST(FredkinTest, constructor_1) {
 	ASSERT_EQ(f.alive, true);
 	ASSERT_EQ(f.age, 0);
 }
-
+//updateStatus
+TEST(FredkinTest, udpateStatus_0) {
+	FredkinCell f = FredkinCell('-');
+	f.updateStatus(1);
+	bool result = false;
+	if(f) {result = true;}
+	ASSERT_EQ(result, true);
+}
+TEST(FredkinTest, udpateStatus_1) {
+	FredkinCell f = FredkinCell('-');
+	f.updateStatus(3);
+	bool result = false;
+	if(f) {result = true;}
+	ASSERT_EQ(result, true);
+}
+TEST(FredkinTest, udpateStatus_3) {
+	FredkinCell f = FredkinCell('0');
+	f.updateStatus(0);
+	bool result = false;
+	if(!f) {result = true;}
+	ASSERT_EQ(result, true);
+}
+TEST(FredkinTest, udpateStatus_4) {
+	FredkinCell f = FredkinCell('0');
+	f.updateStatus(2);
+	bool result = false;
+	if(!f) {result = true;}
+	ASSERT_EQ(result, true);
+}
 
 // ----
 // Cell
@@ -73,10 +130,99 @@ TEST(CellTest, constructor_3) {
 	}
 	ASSERT_EQ(result, true);
 }
+TEST(CellTest, updateStatus_0) {
+	Cell c = Cell('.');
+	c.updateStatus(3);
+	bool result = false;
+	if(c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
+TEST(CellTest, updateStatus_1) {
+	Cell c = Cell('.');
+	c.updateStatus(1);
+	bool result = false;
+	if(!c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
+TEST(CellTest, updateStatus_2) {
+	Cell c = Cell('*');
+	c.updateStatus(5);
+	bool result = false;
+	if(!c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
+TEST(CellTest, updateStatus_3) {
+	Cell c = Cell('*');
+	c.updateStatus(2);
+	bool result = false;
+	if(c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
+TEST(CellTest, updateStatus_4) {
+	Cell c = Cell('0');
+	c.updateStatus(2);
+	bool result = false;
+	if(!c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
+TEST(CellTest, updateStatus_5) {
+	Cell c = Cell('0');
+	c.updateStatus(1);
+	bool result = false;
+	if(c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
+TEST(CellTest, updateStatus_6) {
+	Cell c = Cell('-');
+	c.updateStatus(2);
+	bool result = false;
+	if(!c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
+TEST(CellTest, updateStatus_7) {
+	Cell c = Cell('-');
+	c.updateStatus(3);
+	bool result = false;
+	if(c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
+TEST(CellTest, updateStatus_8) {
+	Cell c = Cell('-');
+	c.updateStatus(1);
+	bool result = false;
+	if(c) {
+		result = true;
+	}
+	ASSERT_EQ(result, true);
+}
 
-
-
-
+//numOfNeighbors
+TEST(CellTest, numOfNeighbors_0) {
+	Cell c = Cell('-');
+	int n = c.numOfNeighbors();
+	ASSERT_EQ(n, 4);
+}
+TEST(CellTest, numOfNeighbors_1) {
+	Cell c = Cell('.');
+	int n = c.numOfNeighbors();
+	ASSERT_EQ(n, 8);
+}
 
 // ----
 // Life
@@ -123,7 +269,6 @@ TEST(LifeTest, constructor_2) {
 	result = false; 
 	
 	ASSERT_EQ(life.grid[3].printCell(), '*');
-	// ASSERT_EQ(life.grid[4], false);
 }
 //countNeighbors test
 TEST(LifeTest, countNeighbors_0) {
@@ -183,14 +328,188 @@ TEST(LifeTest, inBounds_2) {
     ASSERT_EQ(life.inBounds(-2), false);
 }
 
+//at test
+TEST(LifeTest, at_0) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    bool result = false;
+    if(life.at(2)) {result = true;}
+    ASSERT_EQ(result, true);
+}
+TEST(LifeTest, at_1) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    bool result = false;
+    if(!life.at(3)) {result = true;}
+    ASSERT_EQ(result, true);
+}
+TEST(LifeTest, at_2) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    bool result = false;
+    if(life.at(8)) {result = true;}
+    ASSERT_EQ(result, true);
+}
+//at test2
+TEST(LifeTest, at2_0) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    bool result = false;
+    if(life.at(0,2)) {result = true;}
+    ASSERT_EQ(result, true);
+}
+TEST(LifeTest, at2_1) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    bool result = false;
+    if(!life.at(1,1)) {result = true;}
+    ASSERT_EQ(result, true);
+}
+TEST(LifeTest, at2_2) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    bool result = false;
+    if(life.at(2,2)) {result = true;}
+    ASSERT_EQ(result, true);
+}
 
+//printBoard test
+TEST(LifeTest, printBoard_0) {
+    istringstream r("..*...\n..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 6, r, w);
+    life.printBoard(true);
+}
+TEST(LifeTest, printBoard_1) {
+    istringstream r("..*...\n..*...\n");
+    ostringstream w;
+    Life<ConwayCell> life(2, 6, r, w);
+    life.printBoard(true);
+}
+TEST(LifeTest, printBoard_2) {
+    istringstream r("..*\n..*\n..*\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 3, r, w);
+    life.printBoard(true);
+}
 
-// TEST(LifeTest, constructor_1) {
+//iteration
+TEST(LifeTest, iteration_0) {
+    istringstream r("*....\n..*..\n..*..\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 5, r, w);
 
-// 	Darwin d = Darwin(1,5);
-// 	for (int i = 0; i < 5; i++)
-// 	{
-// 		ASSERT_TRUE(d.inBounds(0,i));
-// 	}
-// }
+    int check = 0;
+    //iteration
+    for(int i=0; i<15; i++) {
+    	if(life.grid[i] == life.at(i) ) {
+    		++check;
+    	}
+    }
+    ASSERT_EQ(check, 15);
+}
+TEST(LifeTest, iteration_1) {
+    istringstream r("*.*..\n..*.*\n..*..\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 5, r, w);
+
+    int check = 0;
+    //iteration
+    for(int i=0; i<15; i++) {
+    	if(life.at(i)) {
+    		++check;
+    	}
+    }
+    ASSERT_EQ(check, 5);
+}
+TEST(LifeTest, iteration_2) {
+    istringstream r("*....\n");
+    ostringstream w;
+    Life<ConwayCell> life(1, 5, r, w);
+
+    int check = 0;
+    //iteration
+    for(int i=0; i<5; i++) {
+    	if(life.grid[i] == life.at(i) ) {
+    		++check;
+    	}
+    }
+    ASSERT_EQ(check, 5);
+}
+
+//begin
+TEST(LifeTest, begin_0) {
+	istringstream r("*....\n..*..\n..*..\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 5, r, w);
+    ConwayCell* c_begin = life.begin();
+
+    //test begin
+    bool beginBool = false;
+    if(c_begin && life.at(0)) {beginBool = true;}
+    ASSERT_EQ(beginBool, true);
+}
+TEST(LifeTest, begin_1) {
+	istringstream r(".....\n..*..\n..*..\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 5, r, w);
+    ConwayCell* c_begin = life.begin();
+
+    //test begin
+    bool beginBool = false;
+    if(!(*c_begin)) {beginBool = true;}
+    ASSERT_EQ(beginBool, true);
+}
+TEST(LifeTest, begin_2) {
+	istringstream r("*.\n");
+    ostringstream w;
+    Life<ConwayCell> life(1, 2, r, w);
+    ConwayCell* c_begin = life.begin();
+
+    bool beginBool = false;
+    if((*c_begin)) {beginBool = true;}
+    ASSERT_EQ(beginBool, true);
+}
+
+//end
+TEST(LifeTest, end_0) {
+	istringstream r("*....\n..*..\n..*..\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 5, r, w);
+    ConwayCell* c_end = life.end();
+
+    //test begin
+    bool endBool = false;
+    if(!(*c_end) ) {endBool = true;}
+    ASSERT_EQ(endBool, true);
+}
+TEST(LifeTest, end_1) {
+	istringstream r("*....\n..*..\n..*.*\n");
+    ostringstream w;
+    Life<ConwayCell> life(3, 5, r, w);
+    ConwayCell* c_end = life.end();
+
+    //test begin
+    bool endBool = false;
+    if((*c_end) ) {endBool = true;}
+    ASSERT_EQ(endBool, true);
+}
+TEST(LifeTest, end_2) {
+	istringstream r("*....\n");
+    ostringstream w;
+    Life<ConwayCell> life(1, 5, r, w);
+    ConwayCell* c_end = life.end();
+
+    //test begin
+    bool endBool = false;
+    if(!(*c_end) ) {endBool = true;}
+    ASSERT_EQ(endBool, true);
+}
+
 
