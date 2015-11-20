@@ -67,7 +67,7 @@ status:
 	git remote -v
 	git status
 
-test: RunLife.tmp TestLife.tmp
+test: TestLife.tmp RunLife.tmp
 
 life-tests:
 	git clone https://github.com/cs371p-fall-2015/life-tests.git
