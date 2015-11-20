@@ -1,0 +1,168 @@
+==21128== Memcheck, a memory error detector
+==21128== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==21128== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==21128== Command: ./TestLife
+==21128== 
+Running main() from gtest_main.cc
+[==========] Running 55 tests from 4 test cases.
+[----------] Global test environment set-up.
+[----------] 6 tests from ConwayTest
+[ RUN      ] ConwayTest.constructor_0
+[       OK ] ConwayTest.constructor_0 (9 ms)
+[ RUN      ] ConwayTest.constructor_1
+[       OK ] ConwayTest.constructor_1 (2 ms)
+[ RUN      ] ConwayTest.updateStatus_0
+[       OK ] ConwayTest.updateStatus_0 (3 ms)
+[ RUN      ] ConwayTest.updateStatus_1
+[       OK ] ConwayTest.updateStatus_1 (2 ms)
+[ RUN      ] ConwayTest.updateStatus_2
+[       OK ] ConwayTest.updateStatus_2 (2 ms)
+[ RUN      ] ConwayTest.updateStatus_3
+[       OK ] ConwayTest.updateStatus_3 (2 ms)
+[----------] 6 tests from ConwayTest (25 ms total)
+
+[----------] 6 tests from FredkinTest
+[ RUN      ] FredkinTest.constructor_0
+[       OK ] FredkinTest.constructor_0 (2 ms)
+[ RUN      ] FredkinTest.constructor_1
+[       OK ] FredkinTest.constructor_1 (3 ms)
+[ RUN      ] FredkinTest.udpateStatus_0
+[       OK ] FredkinTest.udpateStatus_0 (3 ms)
+[ RUN      ] FredkinTest.udpateStatus_1
+[       OK ] FredkinTest.udpateStatus_1 (2 ms)
+[ RUN      ] FredkinTest.udpateStatus_3
+[       OK ] FredkinTest.udpateStatus_3 (2 ms)
+[ RUN      ] FredkinTest.udpateStatus_4
+[       OK ] FredkinTest.udpateStatus_4 (2 ms)
+[----------] 6 tests from FredkinTest (14 ms total)
+
+[----------] 15 tests from CellTest
+[ RUN      ] CellTest.constructor_0
+[       OK ] CellTest.constructor_0 (3 ms)
+[ RUN      ] CellTest.constructor_1
+[       OK ] CellTest.constructor_1 (2 ms)
+[ RUN      ] CellTest.constructor_2
+[       OK ] CellTest.constructor_2 (3 ms)
+[ RUN      ] CellTest.constructor_3
+[       OK ] CellTest.constructor_3 (2 ms)
+[ RUN      ] CellTest.updateStatus_0
+[       OK ] CellTest.updateStatus_0 (3 ms)
+[ RUN      ] CellTest.updateStatus_1
+[       OK ] CellTest.updateStatus_1 (2 ms)
+[ RUN      ] CellTest.updateStatus_2
+[       OK ] CellTest.updateStatus_2 (3 ms)
+[ RUN      ] CellTest.updateStatus_3
+[       OK ] CellTest.updateStatus_3 (2 ms)
+[ RUN      ] CellTest.updateStatus_4
+[       OK ] CellTest.updateStatus_4 (3 ms)
+[ RUN      ] CellTest.updateStatus_5
+[       OK ] CellTest.updateStatus_5 (2 ms)
+[ RUN      ] CellTest.updateStatus_6
+[       OK ] CellTest.updateStatus_6 (3 ms)
+[ RUN      ] CellTest.updateStatus_7
+[       OK ] CellTest.updateStatus_7 (2 ms)
+[ RUN      ] CellTest.updateStatus_8
+[       OK ] CellTest.updateStatus_8 (2 ms)
+[ RUN      ] CellTest.numOfNeighbors_0
+[       OK ] CellTest.numOfNeighbors_0 (2 ms)
+[ RUN      ] CellTest.numOfNeighbors_1
+[       OK ] CellTest.numOfNeighbors_1 (2 ms)
+[----------] 15 tests from CellTest (37 ms total)
+
+[----------] 28 tests from LifeTest
+[ RUN      ] LifeTest.constructor_0
+[       OK ] LifeTest.constructor_0 (29 ms)
+[ RUN      ] LifeTest.constructor_1
+[       OK ] LifeTest.constructor_1 (24 ms)
+[ RUN      ] LifeTest.constructor_2
+[       OK ] LifeTest.constructor_2 (22 ms)
+[ RUN      ] LifeTest.countNeighbors_0
+[       OK ] LifeTest.countNeighbors_0 (11 ms)
+[ RUN      ] LifeTest.countNeighbors_1
+[       OK ] LifeTest.countNeighbors_1 (9 ms)
+[ RUN      ] LifeTest.countNeighbors_2
+[       OK ] LifeTest.countNeighbors_2 (8 ms)
+[ RUN      ] LifeTest.countNeighbors_3
+[       OK ] LifeTest.countNeighbors_3 (10 ms)
+[ RUN      ] LifeTest.inBounds_0
+[       OK ] LifeTest.inBounds_0 (3 ms)
+[ RUN      ] LifeTest.inBounds_1
+[       OK ] LifeTest.inBounds_1 (3 ms)
+[ RUN      ] LifeTest.inBounds_2
+[       OK ] LifeTest.inBounds_2 (3 ms)
+[ RUN      ] LifeTest.at_0
+[       OK ] LifeTest.at_0 (3 ms)
+[ RUN      ] LifeTest.at_1
+[       OK ] LifeTest.at_1 (3 ms)
+[ RUN      ] LifeTest.at_2
+[       OK ] LifeTest.at_2 (3 ms)
+[ RUN      ] LifeTest.at2_0
+[       OK ] LifeTest.at2_0 (4 ms)
+[ RUN      ] LifeTest.at2_1
+[       OK ] LifeTest.at2_1 (3 ms)
+[ RUN      ] LifeTest.at2_2
+[       OK ] LifeTest.at2_2 (3 ms)
+[ RUN      ] LifeTest.printBoard_0
+
+Generation = 0, Population = 3.
+..*...
+..*...
+..*...
+[       OK ] LifeTest.printBoard_0 (7 ms)
+[ RUN      ] LifeTest.printBoard_1
+
+Generation = 0, Population = 2.
+..*...
+..*...
+[       OK ] LifeTest.printBoard_1 (3 ms)
+[ RUN      ] LifeTest.printBoard_2
+
+Generation = 0, Population = 3.
+..*
+..*
+..*
+[       OK ] LifeTest.printBoard_2 (2 ms)
+[ RUN      ] LifeTest.iteration_0
+[       OK ] LifeTest.iteration_0 (4 ms)
+[ RUN      ] LifeTest.iteration_1
+[       OK ] LifeTest.iteration_1 (3 ms)
+[ RUN      ] LifeTest.iteration_2
+[       OK ] LifeTest.iteration_2 (3 ms)
+[ RUN      ] LifeTest.begin_0
+[       OK ] LifeTest.begin_0 (4 ms)
+[ RUN      ] LifeTest.begin_1
+[       OK ] LifeTest.begin_1 (3 ms)
+[ RUN      ] LifeTest.begin_2
+[       OK ] LifeTest.begin_2 (2 ms)
+[ RUN      ] LifeTest.end_0
+[       OK ] LifeTest.end_0 (3 ms)
+[ RUN      ] LifeTest.end_1
+[       OK ] LifeTest.end_1 (3 ms)
+[ RUN      ] LifeTest.end_2
+[       OK ] LifeTest.end_2 (3 ms)
+[----------] 28 tests from LifeTest (184 ms total)
+
+[----------] Global test environment tear-down
+[==========] 55 tests from 4 test cases ran. (290 ms total)
+[  PASSED  ] 55 tests.
+==21128== 
+==21128== HEAP SUMMARY:
+==21128==     in use at exit: 0 bytes in 0 blocks
+==21128==   total heap usage: 1,488 allocs, 1,488 frees, 162,733 bytes allocated
+==21128== 
+==21128== All heap blocks were freed -- no leaks are possible
+==21128== 
+==21128== For counts of detected and suppressed errors, rerun with: -v
+==21128== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+File 'Life.c++'
+Lines executed:89.19% of 74
+Branches executed:95.24% of 42
+Taken at least once:80.95% of 42
+Calls executed:81.82% of 22
+Creating 'Life.c++.gcov'
+File 'TestLife.c++'
+Lines executed:100.00% of 362
+Branches executed:70.37% of 1728
+Taken at least once:35.42% of 1728
+Calls executed:57.49% of 1877
+Creating 'TestLife.c++.gcov'
