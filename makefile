@@ -93,7 +93,6 @@ TestLife: Life.h Life.c++ TestLife.c++
 
 TestLife.tmp: TestLife
 	$(VALGRIND) ./TestLife                                       >  TestLife.tmp 2>&1
-	$(GCOV) -b Life.h     | grep -A 5 "File 'Life.h'"     >> TestLife.tmp
 	$(GCOV) -b TestLife.c++ | grep -A 5 "File 'TestLife.c++'" >> TestLife.tmp
 	cat TestLife.tmp
 
